@@ -6,3 +6,4 @@ logs
 error_log
 *.ico
 test.php
+.htpasswd
