@@ -1,8 +1,9 @@
 <?php
 error_reporting(E_ALL); 
 ini_set( 'display_errors','1');
-require '../../classes/connect.php';
-require '../../inc/utils.php';
+$root = $_SERVER['HTTP_HOST'];
+require '../classes/connect.php';
+require '../inc/utils.php';
 $bcon = new DBConnect();
 $client = $_GET['clientUrl'];
 $prots = array(
