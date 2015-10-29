@@ -1,0 +1,242 @@
+html{
+    background:url('../images/black-white-city.jpg') fixed no-repeat;
+    background-size: cover;
+    -moz-background-size:cover;
+    -webkit-background-size:cover;
+}
+body{
+    font-size:100%;
+    margin:0;
+    padding:0;
+    height:100%;
+    width:100%;
+}
+header,nav,footer,section,article,div,aside{
+    box-sizing:border-box;
+    display:block;
+    padding:0;
+    margin:0;
+    font-size:14px;
+}
+nav{
+    float: right;
+    height: 50px;
+    margin-top: -54px;
+    margin-right: 10%;
+    font-size:1.15em;
+    font-weight: 900;
+    text-shadow: 1px 1px #fff;
+}
+nav ul{
+    list-style:none;
+    height: 50px;
+}
+nav li{
+    display: block;
+    float: left;
+    padding: 10px 15px;
+}
+nav li:hover{
+    background-color:rgba(250,250,250,0.75);
+}
+nav li a{
+    text-decoration:none;
+    color:#000;
+}
+nav.settings-options{
+    float:left;
+    color:
+}
+nav.settings-options li{
+    border:1px solid #000;
+    border-radius:10px;
+    margin:0 10px;
+}
+nav.settings-options li:hover{
+    background-color:#000;
+}
+nav.settings-options li:hover a{
+    text-shadow:none;
+    color:#FFF;
+}
+section{
+    padding:50px;
+    background-color:rgba(250,250,250,0.87);
+}
+h1{font-size:2.5em;}
+h2{font-size:2.25em;}
+h3{font-size:1.5em;}
+h4{font-size:1.25em;}
+h1.title{
+    margin-left:50px;
+}
+table{
+    border:1px solid #0c0c0c;
+    padding:35px;
+}
+.importer-details{
+    width:75%;
+    height:90%;
+    position:fixed;
+    top:5%;
+    left:12.5%;
+    padding:50px;
+    background-color:#FFF;
+    overflow:auto;
+    display:none;
+    box-shadow: 2px 3px 3px #000;
+    border-radius:25px;
+}
+.importer-details-close{
+    background-color:red;
+    border:2px solid #000;
+    box-shadow: 2px 3px 3px #000;
+    border-radius:90px;
+    width:50px;
+    height:50px;
+    line-height:50px;
+    font-size:36px;
+    text-align:center;
+    position:fixed;
+    top:2%;
+    right:10.5%;
+    display:none;
+    cursor:pointer;
+}
+.expand{
+    width:25px;
+    height:auto;
+    cursor:pointer;
+}
+table.details{
+    border-collapse:collapse;
+    border:none;
+}
+table.details td{
+    min-width:150px;
+}
+table.master-display td{
+    min-width:215px;
+}
+table.details th td{
+    min-width:150px;
+}
+table.details tr{
+    padding:10px;
+    border-bottom: 2px solid #000;
+}
+table.details td:hover span{
+    display:block;
+}
+table .download{
+    text-align:right;
+}
+span.options{
+    position: absolute;
+    left:-30px;
+    top:15px;
+  display: block;
+  width: 15px;
+  height: auto;
+}
+img.down-icon{
+      width: 20px;
+  height: auto;
+}
+form{
+    margin-top:50px;
+}
+fieldset{
+    margin:10px;
+    padding:15px;
+}
+legend{
+    font-size:1.75em;
+}
+.add-field{
+    width:25px;
+    height:auto;
+    cursor:pointer;
+}
+label{
+  box-sizing: border-box;
+  display: inline-block;
+  width: 250px;
+  padding-left: 25px;
+    font-size: 20px;
+    margin-bottom:15px;
+}
+label span{
+    font-size:9px;
+    width:211px;
+    display:none;
+    position:absolute;
+}
+input[type=text], select, input[type=date], textarea, input[type="url"]{
+    min-width:300px;
+    border-radius:5px;
+    line-height:24px;
+    margin-bottom:15px;
+}
+input[type=number]{
+    min-width:35px;
+    max-width:50px;
+    height:30px;
+    border-radius:5px;
+}
+textarea{
+    margin-top:-35px;
+}
+select{
+    height:24px;
+    font-size:20px;
+}
+.newError{
+    margin:10px 0;
+}
+table.error-report{
+    width:100%;
+    margin:0;
+    padding:0;
+}
+.full{
+    width:100%;
+}
+nav.pagination a{
+    margin:0px 25px;
+    display:inline-block;
+    padding:5px;
+}
+nav.pagination {
+  margin-top: 0px;
+  margin-bottom: 5px;
+    margin-right:0px;
+  display: block;
+  padding: 10px;
+  height: auto;
+}
+div.delete-error {
+    position: absolute;
+    right: 0;
+    margin-right: 15px;
+}
+table.error-report {
+    position: relative;
+}
+#submit-error-deletion{
+    position: fixed;
+    bottom: 0px;
+    z-index: 999;
+    background-color: blue;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #FFF;
+    right: 10px;
+}
+div#sorting{
+    float:left;
+}
+div#sorting form{
+    margin-top:0px;
+}

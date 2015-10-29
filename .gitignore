@@ -1,0 +1,8 @@
+*/repository
+classes/creds.php
+db
+folder_errors
+logs
+error_log
+*.ico
+test.php
