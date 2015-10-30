@@ -85,6 +85,11 @@ if (isset($_REQUEST['action'])) {
          $con->insertData('log_versions', array('domain' => $client, 'site_url' => $url, 'importer' => 'wordpress', 'version' => $version));
             echo "$client registered successfully as new client";
         }
+      else{
+        echo '<pre>';
+          var_dump($_REQUEST);
+          echo '</pre>';
+      }
       break;
 
   }
