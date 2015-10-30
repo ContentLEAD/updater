@@ -6,8 +6,8 @@ class Brafton_errors {
     public $date;
     
     public function __construct($settings = null){
-        error_reporting(E_ALL);
-        init_set("display_errors", 1);
+        ini_set( "display_errors", 1 );
+        error_reporting( E_ALL );
         
     }
 }
