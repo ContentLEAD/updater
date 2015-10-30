@@ -23,9 +23,6 @@ class DBConnect implements Icreds {
         $this->db = Icreds::DB;
         $this->connection = $this->hook();
         $this->ENV = Icreds::ENV;
-        if($this->ENV != 'LIVE'){
-            include_once 'error_test.php';
-        }
     }
     //make the database connection
     private function hook(){
