@@ -18,15 +18,6 @@ $con = new DBConnect();
                 <?php get_header('Brafton Plugin and Module Settings'); ?>
             </head>
             <section>
-                <nav class="settings-options">
-                    <ul>
-                        <li><a href="?action=add">Add New Plugin</a></li>
-                        <li><a href="?action=update">Register Plugin Update</a></li>
-                        <li><a href="?action=edit">Edit Exsisting Entry</a></li>
-                        <li><a href="?action=key">Auto Update key</a></li>
-                        <li><a href="?action=codename">Activate Version Name</a></li>
-                    </ul>
-                </nav>
                 <form action="" method="post" onsubmit="return check_vals()">
                     <?php include 'wp-remote/interface.php'; ?>
                 </form>
