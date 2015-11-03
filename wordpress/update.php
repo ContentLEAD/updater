@@ -77,7 +77,7 @@ if (isset($_REQUEST['action'])) {
         $version = $_REQUEST['version'];
         $api = $_REQUEST['api'];
         $brand = $_REQUEST['brand'];
-      $client = $domain;
+      $client = $site_url;
         if($lid = $con->retrieveData('log_versions', '*', array("WHERE" =>  array(" domain='$client'")))){
           $lid = $lid[0]['lid'];
         $con->updateData('log_versions', array('importer' => 'wordpress', 'version' => $version, 'api' => $api, 'brand' => $brand), array("WHERE" => array(" lid='$lid'")));
