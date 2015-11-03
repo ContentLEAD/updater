@@ -32,7 +32,7 @@ $results = $con->retrieveData('errors','*', array(
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Brafton Plugin/Module Version Control</title>
+        <title>Brafton Plugin/Module Version Control STAGING</title>
         <link rel="stylesheet" href="/css/style.css">
         <!--Jquery from google cdn-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
