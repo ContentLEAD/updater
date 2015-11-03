@@ -72,11 +72,12 @@ if (isset($_REQUEST['action'])) {
       //not using licensing
     case 'register':
       
-        $client = $_REQUEST['domain'];
+        $site_url = $_REQUEST['domain'];
+      $domain = parse_url($site_url)['host'];
         $version = $_REQUEST['version'];
         $api = $_REQUEST['api'];
         $brand = $_REQUEST['brand'];
-      
+      $client = $domain;
         if($lid = $con->retrieveData('log_versions', '*', array("WHERE" =>  array(" domain='$client'")))){
           $lid = $lid[0]['lid'];
         $con->updateData('log_versions', array('importer' => 'wordpress', 'version' => $version, 'api' => $api, 'brand' => $brand), array("WHERE" => array(" lid='$lid'")));
