@@ -71,19 +71,23 @@ if (isset($_REQUEST['action'])) {
       
       //not using licensing
     case 'register':
-      
+        $prots = array(
+            '/http:\/\//',
+            '/https:\/\//',
+            '/www./'
+        );
         $site_url = $_REQUEST['domain'];
-      $domain = parse_url($site_url)['host'];
+        $domain = parse_url($site_url)['host'];
         $version = $_REQUEST['version'];
         $api = $_REQUEST['api'];
         $brand = $_REQUEST['brand'];
-      $client = $site_url;
+        $client = preg_replace($prots,'',$site_url);
         if($lid = $con->retrieveData('log_versions', '*', array("WHERE" =>  array(" domain='$client'")))){
-          $lid = $lid[0]['lid'];
-        $con->updateData('log_versions', array('importer' => 'wordpress', 'version' => $version, 'api' => $api, 'brand' => $brand), array("WHERE" => array(" lid='$lid'")));
+            $lid = $lid[0]['lid'];
+            $con->updateData('log_versions', array('importer' => 'wordpress', 'version' => $version, 'api' => $api, 'brand' => $brand), array("WHERE" => array(" lid='$lid'")));
             echo "$client upgraded successfully and has now registed their api key and brand";
         }else{
-         $con->insertData('log_versions', array('domain' => $client, 'importer' => 'wordpress', 'version' => $version));
+            $con->insertData('log_versions', array('domain' => $client, 'importer' => 'wordpress', 'version' => $version));
             echo "$client registered successfully as new client";
         }
       break;
