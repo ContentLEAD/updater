@@ -7,5 +7,5 @@ AuthName "Please Authenticate"
 </FilesMatch>
 RewriteEngine On
 RewriteRule ^u/([^/]*)/([^/]*)$ update.php?plugin=$1&function=$2 [L]
-RewriteRule ^u/([^/]*)/([^/]*)/([^/]*)([^/]*)$ update.php?plugin=$1&function=$2&action=$3$4 [L]
+RewriteRule ^u/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ update.php?plugin=$1&function=$2&action=$3$4 [L]
 RewriteRule ^errorlog/([^/]*)/([^/]*)/([^/]*)$ update.php?plugin=$1&function=$2&key=$3 [L]

@@ -74,8 +74,8 @@ if (isset($_REQUEST['action'])) {
       
         $client = $_REQUEST['domain'];
         $version = $_REQUEST['version'];
-      $api = $_REQUEST['api'];
-      $brand = $_REQUEST['brand'];
+        $api = $_REQUEST['api'];
+        $brand = $_REQUEST['brand'];
       
         if($lid = $con->retrieveData('log_versions', '*', array("WHERE" =>  array(" domain='$client'")))){
           $lid = $lid[0]['lid'];
