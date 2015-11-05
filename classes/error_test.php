@@ -5,11 +5,11 @@ class Brafton_errors {
     public $page;
     public $date;
     
-    public function __construct($settings){
-        error_reporting(E_ALL);
-            init_set("display_errors", 1);
+    public function __construct($settings = null){
+        ini_set( "display_errors", 1 );
+        error_reporting( E_ALL );
         
     }
 }
-$setuperrors = new Brafton_errors();
+//$setuperrors = new Brafton_errors();
 ?>

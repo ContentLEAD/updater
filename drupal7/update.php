@@ -2,6 +2,7 @@
 header("Content-Type: text/xml");
 require '../classes/connect.php';
 require '../inc/utils.php';
+
 $con = new DBConnect();
     $results = $con->retrieveData('drupal7', '*', array('ORDER BY'=> array('Vid DESC LIMIT 2')));
     $custom[0] = unserialize($results[0]['custom']);
