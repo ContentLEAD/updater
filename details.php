@@ -17,7 +17,7 @@ $details = new DBConnect();
 $results = $details->retrieveData($table, '*', $cond);
 ?>
 <h2><?php echo strtoupper($table); ?></h2>
-<span>Previous 10 updates</span>
+<span>Previous 10 updates available</span>
 <table class="details full">
     <tr>
         <th>Plugin Name</th>
