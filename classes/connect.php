@@ -142,7 +142,7 @@ class DBConnect implements Icreds {
         $result = $this->connection->query($sql);   
     }
     public function show_env(){
-        if($this->ENV == 'STAGING'){
+        if($this->ENV != 'LIVE'){
             echo $this->ENV;
         }
     }
