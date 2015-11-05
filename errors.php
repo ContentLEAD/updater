@@ -43,7 +43,7 @@ $results = $con->retrieveData('errors','*', array(
             <head>
                 <?php get_header('Error Report'); ?>
             </head>
-            <section>
+            <section class="">
                 <div id="delete-notice" style="display:none; color:red;float:left; max-width:50%;">
                     <button id="submit-error-deletion">Delete Selection</button>
                 </div>
