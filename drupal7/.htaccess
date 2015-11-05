@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+  RewriteRule ^Brafton/7.x(.*)$ update.php [L,QSA]
+</IfModule>
