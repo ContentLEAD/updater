@@ -26,10 +26,14 @@ $total = $con->retrieveData('errors','*', array(
                                                     " $cond ORDER BY date DESC")));
 $total_count = count($total);
 $results = $con->retrieveData('errors','*', array(
-                                                'WHERE' => array(
-                                                    " $cond ORDER BY date DESC LIMIT $start, 25")));
+                                                'GROUP BY' => array(
+                                                    "Domain WHERE $cond ORDER BY date DESC LIMIT $start, 25")));
 ?>
 <!DOCTYPE html>
+<?php echo '<pre>';
+var_dump($results);
+echo '</pre>';
+?>
 <html>
     <head>
         <title>Brafton Plugin/Module Version Control STAGING</title>
