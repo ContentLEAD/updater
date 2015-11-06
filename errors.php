@@ -27,10 +27,9 @@ $total = $con->retrieveData('errors','*', array(
 $total_count = count($total);
 //$results = $con->retrieveData('errors','*', array(
 //                                                'GROUP BY' => array(
-//                                                    "Domain WHERE $cond ORDER BY date DESC LIMIT $start, 25")));
-$results = $con->retrieveData('errors','*', array(
-                                                'WHERE' => array(
-                                                    " $cond GROUP BY domain")));
+//          "Domain WHERE $cond ORDER BY date DESC LIMIT $start, 25")));
+$custom = "SELECT Domain as OuterDomain, (SELECT * WHERE Domain = OuterDomain) as Errors GROUP BY Domain";
+$results = $con->customQuery($custom);
 ?>
 <!DOCTYPE html>
 <?php echo '<pre>';
