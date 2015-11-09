@@ -48,13 +48,31 @@ echo '</pre>';
         <!--Jquery from google cdn-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="/js/brafton.js" type="text/javascript"></script>
+        <style>
+            .main-container:after{
+                clear:both;
+                content:"";
+                display:block;
+            }
+            .error_card:nth-child(1){
+                clear:both;
+            }
+            .error_card {
+                width: 33%;
+                float: left;
+                border-radius: 5px;
+                padding: 15px;
+                border: 1px solid black;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
         <div class="body">
             <head>
                 <?php get_header('Error Report'); ?>
             </head>
-            <section class="">
+            <section class="main-container">
                 <div id="delete-notice" style="display:none; color:red;float:left; max-width:50%;">
                     <button id="submit-error-deletion">Delete Selection</button>
                 </div>
@@ -68,15 +86,17 @@ echo '</pre>';
                 </nav>
                 <?php 
                 foreach($results as $result){ ?>
-                   <div class="error_card">
-                    <h2><?php echo $result['domain']; ?></h2>
-                       <h3><?php echo $result['errors'][0]['type']; ?></h3>
-                       <p>Total Errors: <?php echo count($result['errors']); ?></p>
-                       <div class="error_list">
-                           <?php foreach($result['errors'] as $errors){ ?>
-                            
-                           <?php } ?>
-                       </div>
+                    <div class="error_card">
+                        <div class="error_cont">
+                            <h2><?php echo $result['domain']; ?></h2>
+                            <h3><?php echo $result['errors'][0]['type']; ?></h3>
+                            <p>Total Errors: <?php echo count($result['errors']); ?></p>
+                            <div class="error_list">
+                            <?php foreach($result['errors'] as $errors){ ?>
+
+                            <?php } ?>
+                            </div>
+                        </div>
                     </div>
                 <?php } ?>
             </section>
