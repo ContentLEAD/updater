@@ -30,8 +30,10 @@ $results = $con->retrieveData('errors','domain', array(
           " $cond GROUP BY domain LIMIT $start, 25")));
 //$custom = "SELECT e.Domain, (SELECT ie.error FROM errors AS ie WHERE ie.Domain = e.Domain) AS Errors FROM errors AS e GROUP BY e.Domain";
 //$results = $con->customQuery($custom);
-foreach($results as $result){
-    $result['errors'] = 'new error';
+for($i=0;$i<count($results);$i++){
+    $results[$i]['errors'] = $con->retrieveData('errors', '*', array(
+        'WHERE' => array(
+            sprintf("domain = '%s' ORDER BY date DESC", $results[$i]['domain']))));
 }
 ?>
 <!DOCTYPE html>
