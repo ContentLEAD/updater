@@ -54,7 +54,7 @@ echo '</pre>';
                 content:"";
                 display:block;
             }
-            .error_card:nth-child(1){
+            .error_card:nth-of-type(1){
                 clear:both;
             }
             .error_card {
@@ -64,6 +64,10 @@ echo '</pre>';
                 padding: 15px;
                 border: 1px solid black;
                 text-align: center;
+            }
+            .error_cont {
+                border: 1px solid black;
+                border-radius: 10px;
             }
         </style>
     </head>
