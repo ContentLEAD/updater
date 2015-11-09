@@ -54,20 +54,40 @@ echo '</pre>';
                 content:"";
                 display:block;
             }
-            .error_card:nth-of-type(1){
-                clear:both;
+            div.error_card:nth-of-type(3) {
+                clear: both;
             }
             .error_card {
                 width: 33%;
                 float: left;
-                border-radius: 5px;
                 padding: 15px;
-                border: 1px solid black;
                 text-align: center;
             }
             .error_cont {
                 border: 1px solid black;
                 border-radius: 10px;
+                width:100%;
+                box-sizing:border-box;
+                overflow-wrap: initial;
+                padding:25px 0px;
+            }
+            .error_cont h2 a{
+                font-size:1.75em;
+                text-decoration:none;
+            }
+            .error_cont h3{
+                font-size:1.5em;
+            }
+            .error_list{
+                display:none;
+                position:absolute;
+                background-color:#fff;
+                color:#000;
+            }
+            .domain-select{
+                position:relative;
+                top:0;
+                right:0;
             }
         </style>
     </head>
@@ -92,7 +112,8 @@ echo '</pre>';
                 foreach($results as $result){ ?>
                     <div class="error_card">
                         <div class="error_cont">
-                            <h2><?php echo $result['domain']; ?></h2>
+                            <span class="domain-select">Select<input type="checkbox" name="domain-select" value="<?php echo $result['domain']; ?>"></span>
+                            <h2><a href="<?php echo $result['domain']; ?>"><?php echo $result['domain']; ?></a></h2>
                             <h3><?php echo $result['errors'][0]['type']; ?></h3>
                             <p>Total Errors: <?php echo count($result['errors']); ?></p>
                             <div class="error_list">
