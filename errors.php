@@ -27,7 +27,7 @@ $total = $con->retrieveData('errors','*', array(
 $total_count = count($total);
 $results = $con->retrieveData('errors','*', array(
                                                 'GROUP BY' => array(
-         "Domain WHERE $cond ORDER BY date DESC LIMIT $start, 25")));
+         " domain WHERE $cond ORDER BY date DESC LIMIT $start, 25")));
 
 ?>
 <!DOCTYPE html>
