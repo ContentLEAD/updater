@@ -68,27 +68,15 @@ echo '</pre>';
                 </nav>
                 <?php 
                 foreach($results as $result){ ?>
-                    <div class="newError">
-                        <?php $data = json_decode($result['error']); ?>
-                        <table class="error-report" id="error-<?php echo $result['Eid']; ?>">
-                            <tr>
-                                <td colspan="99"><div class="delete-error" id="<?php echo $result['Eid']; ?>"><button data-error="<?php echo $result['Eid']; ?>" class="delete-individual-error">Delete</button></div><h3>Error for <?php echo $result['type']; ?> on <?php echo $result['date']; ?></h3>Salesforce Status: <?php if($result['sync']){ echo 'Ticket Created'; }else{ echo 'No Ticket Created'; } ?></td>
-                            </tr>
-                            <tr>
-                               <?php 
-                                $vars = get_object_vars($data); 
-                                foreach($vars as $key => $value){
-                                    if($key == 'error'){ 
-                                        echo '</tr><tr>';
-                                        echo '<td colspan="99">'.$value.'</td>';
-                                    }else{
-                                        echo '<td>'.$key.' is: '.$value.'</td>';
-                                    }
-                                }
-                                ?>
-                                                              
-                            </tr>
-                        </table>
+                   <div class="error_card">
+                    <h2><?php echo $result['domain']; ?></h2>
+                       <h3><?php echo $result['errors'][0]['type']; ?></h3>
+                       <p>Total Errors: <?php echo count($result['errors']); ?></p>
+                       <div class="error_list">
+                           <?php foreach($result['errors'] as $errors){ ?>
+                            
+                           <?php } ?>
+                       </div>
                     </div>
                 <?php } ?>
             </section>
