@@ -27,7 +27,7 @@ $total = $con->retrieveData('errors','*', array(
 $total_count = count($total);
 $results = $con->retrieveData('errors','domain', array(
                                                 'WHERE' => array(
-          " $cond ORDER BY date DESC GROUP BY domain LIMIT $start, 25")));
+          " $cond GROUP BY domain LIMIT $start, 25")));
 //$custom = "SELECT e.Domain, (SELECT ie.error FROM errors AS ie WHERE ie.Domain = e.Domain) AS Errors FROM errors AS e GROUP BY e.Domain";
 //$results = $con->customQuery($custom);
 ?>
