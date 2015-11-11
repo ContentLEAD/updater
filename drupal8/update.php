@@ -37,7 +37,7 @@ DEC;
 <type>project_module</type>
 <api_version>8.x</api_version>
 <project_status>published</project_status>
-<link>http://www.brafton.com/support/drupal-7</link>
+<link>http://www.brafton.com/support/drupal-8</link>
   <terms>
    <term><name>Projects</name><value>Modules</value></term>
   </terms>
@@ -52,7 +52,7 @@ DEC;
   <status>published</status>
   <release_link><?php echo $drupal[$i]['release_link']; ?></release_link>
   <download_link><?php echo $results[$i]['download_link']; ?></download_link>
-<date><?php echo strtotime($results[$i]['last_updated']); ?></date>
+<date>1446661740</date>
 <mdhash>4d78ec1e9b7ab2dfe9cb08e3b4cd386b</mdhash>
 <filesize>90325</filesize>
 <files>
