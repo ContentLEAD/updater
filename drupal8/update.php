@@ -49,6 +49,9 @@ DEC;
   <tag><?php echo $results[$i]['requires'].'-'.$results[$i]['version']; ?></tag><?php $versions = explode('.',$results[$i]['version']); ?>
   <version_major><?php echo $versions[0]; ?></version_major>
   <version_patch><?php echo $versions[1].$versions[2]; ?></version_patch>
+  <?php if (isset($drupal[$i]['extra_version'])) { ?>
+  <version_extra><?php echo $drupal[$i]['extra_version']; ?></version_extra>
+  <?php } ?>
   <status>published</status>
   <release_link><?php echo $drupal[$i]['release_link']; ?></release_link>
   <download_link><?php echo $results[$i]['download_link']; ?></download_link>
