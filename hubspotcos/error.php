@@ -9,9 +9,11 @@ if(isset($_REQUEST['key'])){
         echo '<br>Logging Error Report<br>';
         $type = $results[0]['importer'];
         $error = $_REQUEST['error'];
+        $url = json_decode($error)->Domain;
         $data = array(
             'type'          => $type,
             'date'          => $date,
+            'domain'        => $url,
             'error'         => $error
         );
         echo '<pre>';
