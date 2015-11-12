@@ -25,11 +25,22 @@ $total = $con->retrieveData('errors','*', array(
                                                 'WHERE' => array(
                                                     " $cond ORDER BY date DESC")));
 $total_count = count($total);
-$results = $con->retrieveData('errors','*', array(
+$results = $con->retrieveData('errors','domain', array(
                                                 'WHERE' => array(
-                                                    " $cond ORDER BY date DESC LIMIT $start, 25")));
+          " $cond GROUP BY domain LIMIT $start, 25")));
+//$custom = "SELECT e.Domain, (SELECT ie.error FROM errors AS ie WHERE ie.Domain = e.Domain) AS Errors FROM errors AS e GROUP BY e.Domain";
+//$results = $con->customQuery($custom);
+for($i=0;$i<count($results);$i++){
+    $results[$i]['errors'] = $con->retrieveData('errors', '*', array(
+        'WHERE' => array(
+            sprintf("domain = '%s' ORDER BY date DESC", $results[$i]['domain']))));
+}
 ?>
 <!DOCTYPE html>
+<?php echo '<pre>';
+var_dump($results);
+echo '</pre>';
+?>
 <html>
     <head>
         <title>Brafton Plugin/Module Version Control STAGING</title>
@@ -37,13 +48,55 @@ $results = $con->retrieveData('errors','*', array(
         <!--Jquery from google cdn-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="/js/brafton.js" type="text/javascript"></script>
+        <style>
+            .main-container:after{
+                clear:both;
+                content:"";
+                display:block;
+            }
+            div.error_card:nth-of-type(3) {
+                clear: both;
+            }
+            .error_card {
+                width: 33%;
+                float: left;
+                padding: 15px;
+                text-align: center;
+            }
+            .error_cont {
+                border: 1px solid black;
+                border-radius: 10px;
+                width:100%;
+                box-sizing:border-box;
+                overflow-wrap: initial;
+                padding:25px 0px;
+            }
+            .error_cont h2 a{
+                font-size:1.75em;
+                text-decoration:none;
+            }
+            .error_cont h3{
+                font-size:1.5em;
+            }
+            .error_list{
+                display:none;
+                position:absolute;
+                background-color:#fff;
+                color:#000;
+            }
+            .domain-select{
+                position:relative;
+                top:0;
+                right:0;
+            }
+        </style>
     </head>
     <body>
         <div class="body">
             <head>
                 <?php get_header('Error Report'); ?>
             </head>
-            <section class="">
+            <section class="main-container">
                 <div id="delete-notice" style="display:none; color:red;float:left; max-width:50%;">
                     <button id="submit-error-deletion">Delete Selection</button>
                 </div>
@@ -57,27 +110,18 @@ $results = $con->retrieveData('errors','*', array(
                 </nav>
                 <?php 
                 foreach($results as $result){ ?>
-                    <div class="newError">
-                        <?php $data = json_decode($result['error']); ?>
-                        <table class="error-report" id="error-<?php echo $result['Eid']; ?>">
-                            <tr>
-                                <td colspan="99"><div class="delete-error" id="<?php echo $result['Eid']; ?>"><button data-error="<?php echo $result['Eid']; ?>" class="delete-individual-error">Delete</button></div><h3>Error for <?php echo $result['type']; ?> on <?php echo $result['date']; ?></h3>Salesforce Status: <?php if($result['sync']){ echo 'Ticket Created'; }else{ echo 'No Ticket Created'; } ?></td>
-                            </tr>
-                            <tr>
-                               <?php 
-                                $vars = get_object_vars($data); 
-                                foreach($vars as $key => $value){
-                                    if($key == 'error'){ 
-                                        echo '</tr><tr>';
-                                        echo '<td colspan="99">'.$value.'</td>';
-                                    }else{
-                                        echo '<td>'.$key.' is: '.$value.'</td>';
-                                    }
-                                }
-                                ?>
-                                                              
-                            </tr>
-                        </table>
+                    <div class="error_card">
+                        <div class="error_cont">
+                            <span class="domain-select">Select<input type="checkbox" name="domain-select" value="<?php echo $result['domain']; ?>"></span>
+                            <h2><a href="<?php echo $result['domain']; ?>"><?php echo $result['domain']; ?></a></h2>
+                            <h3><?php echo $result['errors'][0]['type']; ?></h3>
+                            <p>Total Errors: <?php echo count($result['errors']); ?></p>
+                            <div class="error_list">
+                            <?php foreach($result['errors'] as $errors){ ?>
+
+                            <?php } ?>
+                            </div>
+                        </div>
                     </div>
                 <?php } ?>
             </section>
