@@ -1,4 +1,0 @@
-<IfModule mod_rewrite.c>
-  RewriteEngine on
-  RewriteRule ^brafton_importer/8.x(.*)$ update.php [L,QSA]
-</IfModule>

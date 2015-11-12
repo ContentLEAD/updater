@@ -23,7 +23,7 @@ if(isset($_REQUEST['key'])){
     }
     else{
        echo 'Encryption key Not Found';
-        
+
     }
 }else{
     //log special error.  Something attempted to access this page without proper encryption key
