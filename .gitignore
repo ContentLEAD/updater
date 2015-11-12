@@ -9,7 +9,5 @@ test.php
 .htpasswd
 .htaccess
 staging
-!drupal7/.htaccess
-!drupal8/.htaccess
 css/.sass-cache
 css/config.rb
