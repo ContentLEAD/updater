@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: text/xml");
-require '/classes/connect.php';
-require '/inc/utils.php';
+include_once 'classes/connect.php';
+include_once 'inc/utils.php';
 
 $con = new DBConnect();
     $results = $con->retrieveData('drupal8', '*', array('ORDER BY'=> array('Vid DESC LIMIT 2')));
