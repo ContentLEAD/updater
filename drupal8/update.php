@@ -31,8 +31,8 @@ DEC;
 ?>
 <?php //echo $dec; ?>
 <project xmlns:dc="http://purl.org/dc/elements/1.1/">
-<title>brafton</title>
-<short_name>brafton</short_name>
+<title>Brafton Importer</title>
+<short_name>brafton_importer</short_name>
 <dc:creator>Brafton</dc:creator>
 <type>project_module</type>
 <api_version>8.x</api_version>
