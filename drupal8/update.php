@@ -36,9 +36,11 @@ DEC;
 <dc:creator>Brafton</dc:creator>
 <type>project_module</type>
 <api_version>8.x</api_version>
-<recommended_major>1</recommended_major>
-<supported_majors>1</supported_majors>
-<default_major>1</default_major>
+<?php $recent_version = explode('.', $results[0]['version']);
+$recent_major_version = $recent_version[0]; ?>
+<recommended_major><?php echo $recent_major_version ?></recommended_major>
+<supported_majors>1,2,3,4,5,6,7,8,9</supported_majors>
+<default_major><?php echo $recent_major_version ?></default_major>
 <project_status>published</project_status>
 <link>http://www.brafton.com/support/drupal-8</link>
   <terms>
