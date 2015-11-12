@@ -1,0 +1,11 @@
+@mixin add-prefix($rule, $value){
+    -webkit-#{$rule}: $value;
+    -moz-#{$rule}: $value;
+    -ms-#{$rule}: $value;
+    -o-#{$rule}: $value;
+    #{$rule}: $value;
+}
+@mixin add-background-color($color, $opacity: 1){
+    background-color: $color;
+    background-color: rgba($color, $opacity);
+}

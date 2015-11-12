@@ -11,5 +11,5 @@ class Brafton_errors {
         
     }
 }
-//$setuperrors = new Brafton_errors();
+$setuperrors = new Brafton_errors();
 ?>
