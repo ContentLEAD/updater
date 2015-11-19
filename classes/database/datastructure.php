@@ -1,7 +1,5 @@
 <?php
-require_once BASE_PATH.'classes/database/tables/iDataStructure.php';
-
-abstract class DataStructure implements iDataStructure{
+abstract class DataStructure {
     protected $connection;
     protected $table;
     protected $primaryKey;
