@@ -1,6 +1,4 @@
 <?php
-require 'classes/connect.php';
-require 'inc/utils.php';
 if(isset($_REQUEST['key'])){
     $key = $_REQUEST['key'];
     $keycheck = new DBConnect();
