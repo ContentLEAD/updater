@@ -69,7 +69,7 @@ for($i=0;$i<count($results);$i++){
                     <div class="clear-fix"></div>
                 <?php 
                 foreach($results as $result){ ?>
-                    <div class="error_card" id="<?php echo $result['client']; ?>">
+                    <div class="error_card" id="<?php echo $result['domain']; ?>">
                         <span class="domain-select">
                             <label class="switch">
                                 <input class="switch-input" type="checkbox" name="domain-select[]" value="<?php echo $result['domain']; ?>"><!--<span>DELETE</span>--><span class="switch-label" data-on="Delete" data-off="Keep"></span><span class="switch-handle"></span>
