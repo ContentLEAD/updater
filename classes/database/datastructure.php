@@ -1,5 +1,5 @@
 <?php
-require_once 'tables/iDataStructure.php';
+require_once BASE_PATH.'tables/iDataStructure.php';
 
 abstract class DataStructure implements iDataStructure{
     protected $connection;

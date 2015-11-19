@@ -1,4 +1,5 @@
 */repository
+classes/creds.php
 classes/database/creds.php
 db
 folder_errors
