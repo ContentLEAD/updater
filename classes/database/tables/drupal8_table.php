@@ -76,4 +76,17 @@ class drupal8_table extends DataStructure{
         );
         return $column;
     }
+            /*{hook}_table_update is optional for actions that need to be completed after this table is added to the database.  This hook is fired after a table is added to the database*/
+        
+    protected function drupal8_table_update(){
+        global $date;
+        $formalName = ucfirst($this->table);
+        $result = $this->connection->insertData('systems', array('name' => $formalName, 'supported_since' => $date));
+        if($result){
+            
+        }
+        else{
+            echo $this->connection->mysqli_error();   
+        }
+    }
 }
