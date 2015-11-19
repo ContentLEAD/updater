@@ -1,9 +1,5 @@
 <?php
 header("Content-Type: text/xml");
-include_once 'classes/connect.php';
-include_once 'inc/utils.php';
-
-$con = new DBConnect();
     $results = $con->retrieveData('drupal8', '*', array('ORDER BY'=> array('Vid DESC LIMIT 2')));
     $custom[0] = unserialize($results[0]['custom']);
     $custom[1] = unserialize($results[1]['custom']);
