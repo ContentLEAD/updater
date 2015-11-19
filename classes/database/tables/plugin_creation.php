@@ -50,7 +50,7 @@ class {$table}_table extends DataStructure{
         \$column[] = (object) array(
                     'column_name'    => 'last_updated',
                         'type'      => 'datetime',
-                        'default'   => 'DEFAULT CURRENT_TIMESTAMP',
+                        'default'   => 'NULL',
                         'update'    => ''        
         );
         \$column[] = (object) array(
