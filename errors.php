@@ -4,7 +4,6 @@ if(isset($_POST['deleting_items'])){
     $error_ids = implode(',',$_POST['error-id']);
     $delete = 'DELETE FROM errors WHERE Eid in ('.$error_ids.')';
     $result_delete = $con->customQuery($delete);
-    echo $result_delete;
 }
 $cond = "sync = '0'";
 if($page = isset($_GET['page'])? $_GET['page'] : false){
