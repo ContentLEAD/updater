@@ -35,4 +35,23 @@ class systems_table extends DataStructure{
         );
         return $column;
     }
+    protected function logo_update(){
+        global $date;
+        $logos = array(
+            'Wordpress' => 'wordpress-color.png',
+            'HubspotCOS'    => 'hubspot-bubble.jpg',
+            'Drupal7'       => 'drupal-straight.png',
+            'Joomla3'   => 'joomla-swirl.jpg',
+            'Drupal8'   => 'drupal-skew.png'
+        );
+            foreach($logos as $importer => $logo){
+                $result = $this->connection->updateData('systems', array('logo' => $log), array('WHERE', array("name = '$importer'")));
+                if($result){
+
+                }
+                else{
+                    echo $this->connection->mysqli_error();   
+                }
+            }
+    }
 }
