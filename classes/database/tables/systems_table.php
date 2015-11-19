@@ -44,8 +44,9 @@ class systems_table extends DataStructure{
             'Joomla3'   => 'joomla-swirl.jpg',
             'Drupal8'   => 'drupal-skew.png'
         );
+        array('WHERE' => array("version='$ver'"))
             foreach($logos as $importer => $logo){
-                $result = $this->connection->updateData('systems', array('logo' => $logo), array('WHERE', array("name = '$importer'")));
+                $result = $this->connection->updateData('systems', array('logo' => $logo), array('WHERE' => array("name = '$importer'")));
                 if($result){
 
                 }
