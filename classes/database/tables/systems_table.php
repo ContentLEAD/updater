@@ -45,7 +45,7 @@ class systems_table extends DataStructure{
             'Drupal8'   => 'drupal-skew.png'
         );
             foreach($logos as $importer => $logo){
-                $result = $this->connection->updateData('systems', array('logo' => $log), array('WHERE', array("name = '$importer'")));
+                $result = $this->connection->updateData('systems', array('logo' => $logo), array('WHERE', array("name = '$importer'")));
                 if($result){
 
                 }
