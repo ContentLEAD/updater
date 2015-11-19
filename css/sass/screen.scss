@@ -3,4 +3,23 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/reset";
+@media screen and (max-width: 1300px){
+    .error_card {
+        width: 33%;
+    }
+}
+@media screen and (max-width: 1000px){
+    .error_card{
+        h2{
+            font-size:1.2em;
+        }
+        h3{
+            font-size:1em;
+        }
+    }
+}
+@media screen and (max-width: 875px){
+    .error_card {
+        width: 50%;
+    }
+}

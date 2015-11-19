@@ -1,6 +1,5 @@
 <?php
-require '../classes/connect.php';
-require '../inc/utils.php';
+require_once '../load.php';
 $con = new DBConnect();
 if(isset($_POST['deleting_domain']) && $_POST['deleting_domain'] == 'submition'){
     $error_domains = implode('","',$_POST['domain-select']);

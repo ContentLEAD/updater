@@ -1,8 +1,5 @@
 <?php 
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-require 'classes/connect.php';
-require 'inc/utils.php';
+require_once 'load.php';
 $action = 'inc/hold.php';
 if(isset($_GET['action'])){
     $action = $_GET['action'];
@@ -12,6 +9,7 @@ if(isset($_GET['action'])){
         $action = 'inc/'.$action.'.php';
     }
 }
+$action = BASE_PATH . $action;
 if(isset($_POST['act'])){
     
     switch ($_POST['act']){
@@ -32,7 +30,6 @@ if(isset($_POST['act'])){
         break;
     }  
 }
-$con = new DBConnect();
 ?>
 <!DOCTYPE html>
 <html>
@@ -58,7 +55,7 @@ $con = new DBConnect();
                         <li><a href="?action=codename">Activate Version Name</a></li>
                     </ul>
                 </nav>
-                <form action="" method="post" onsubmit="return check_vals()">
+                <form action="" method="post" onsubmit="return check_vals()" >
                     <?php include $action; ?>
                 </form>
             </section>

@@ -1,7 +1,5 @@
-<?php require 'classes/connect.php'; 
-require 'inc/utils.php';
-//Gets a list of the plugins available through our version control system.
-$con = new DBConnect();
+<?php
+require_once 'load.php';
 $system = $con->retrieveData('systems','*');
 ?>
 <!DOCTYPE html>
@@ -26,7 +24,6 @@ $system = $con->retrieveData('systems','*');
                 <h2><?php echo $system[$i]['name']; ?> <img src="images/expand.png" id="<?php echo $system[$i]['name']; ?>" class="expand" title="List previous versions"></h2>
                 <table class="master-display full <?php echo $system[$i]['name']; ?>-table">
                     <?php 
-                    $con = new DBConnect();
                     $version = $con->retrieveData(strtolower($system[$i]['name']), '*', array("ORDER BY" => array("Vid DESC LIMIT 1"))); ?>
                     <tr>
                         <td>Supported Since: <?php echo $system[$i]['supported_since']; ?></td>
