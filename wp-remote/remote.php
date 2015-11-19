@@ -1,10 +1,6 @@
 <?php
-error_reporting(E_ALL); 
-ini_set( 'display_errors','1');
 $root = $_SERVER['HTTP_HOST'];
-require '../classes/connect.php';
-require '../inc/utils.php';
-$bcon = new DBConnect();
+require_once '../load.php';
 $client = $_GET['clientUrl'];
 $prots = array(
     '/http:\/\//',
@@ -12,7 +8,7 @@ $prots = array(
     '/www./'
 );
 $client = preg_replace($prots, '', $client);
-$results = $bcon->retrieveData('log_versions', '*',array("WHERE" => array("domain LIKE '%$client%'")));
+$results = $con->retrieveData('log_versions', '*',array("WHERE" => array("domain LIKE '%$client%'")));
 
 function braftonRemoteImport( $rpc_url, $actions ) {
 	$params = array( $actions );

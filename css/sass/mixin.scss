@@ -9,3 +9,11 @@
     background-color: $color;
     background-color: rgba($color, $opacity);
 }
+@mixin add-prefix-value($declarations, $prefixes:(webkit moz ms o)){
+    @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+  }
+}

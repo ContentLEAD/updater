@@ -21,8 +21,93 @@ function submit_domains() {
         });
     
 }
+function displayMessage($level, $class, $msg){
+            if($("[id='"+$class+"']").length < 1){
+                var p = document.createElement('p');
+                var text = document.createTextNode($msg);
+                p.className = $level+ ' ' + $class;
+                p.id = $class;
+                p.appendChild(text);
+                $('#delete-notice').append(p);
+                $('#submit-error-deletion').css({backgroundColor: '#DC5551'});
+            }
+}
+function setscrolling(){
+    maxscroll = ($('article.master-display').length - 4) * $('article.master-display').outerWidth();
+}
+function new_importer(){
+if($('input[name="act"]').val() == 'add'){
+        var $name = $('input[name="system"]').val();
+        $name = $name.replace(/\s/g, '').toLowerCase();
+        $.ajax({
+            url: "classes/database/tables/plugin_creation.php",
+            content: document.body,
+            type: 'POST',
+            data: 'plugin='+$name
+        }).done(function(data){
+             if(data == 'success'){
+                 $('.administration-settings-form').submit();
+             }else{
+                 alert('There was an error adding a Table to the database');
+                 return false;
+             }
+        });        
+    }   
+}
+function check_vals(){
+    var inputs = $('input');
+    for(var i=0;i<inputs.length;++i){
+        if($(inputs[i]).val() == undefined || $(inputs[i]).val() == ''){
+            alert('All Text fields must be filled out to continue');
+            alert($(inputs[i]).attr('name'));
+            return false;
+        }
+    }
+    var selects = $('select');
+    for(var i=0;i<selects.length;++i){
+        if($(selects[i]).val() == undefined || $(selects[i]).val() == ''){
+            alert('All Select Drop Downs must be filled out to continue');
+            return false;
+        }
+    }
+    return true;
+}
 $(document).ready(function(){
-    
+    $('.administration-settings-form').find('input[type="submit"]').click(function(e){
+        e.preventDefault();
+        new_importer();
+    });
+    $('#go-left').click(function(e){
+            var width = $('#overflow-container').find('article').outerWidth();
+            if(parseInt($('#overflow-container').css("right")) != 0){
+                $('#overflow-container').animate({
+                    right:"+="+width+"px",
+                });
+            }
+    });
+    $('#go-right').click(function(e){
+            var width = $('#overflow-container').find('article').outerWidth();
+            if(parseInt($('#overflow-container').css("right")) != (maxscroll * -1)){
+                $('#overflow-container').animate({
+                    right:"-="+width+"px",
+                });
+            }
+    });
+    $('article.master-display').map(function(num, e){
+        setDisplays = function(e){
+            var versionContainerWidth = $('.version-container').outerWidth();
+            var articleDisplayWidth = (versionContainerWidth/4) - 2.25;
+            var css = $(e).css('background-image');
+            $(e).css({minWidth: '210px', maxWidth: articleDisplayWidth+'px'/*, backgroundImage: css*/});
+        }
+        setDisplays(e);
+        $(window).resize(function(){
+            $('article.master-display').map(function(num, e){
+                setDisplays(e)
+            })
+        });
+        setscrolling();
+    });
     $('.instructions').click(function(e){
         var classes = $(this).attr('class').split(' ');
         var disable = classes[1];
@@ -44,9 +129,9 @@ $(document).ready(function(){
         var string = $diff + 'px 12.5%';
         $error.css({margin: string});
     });
-    $("span.domain-select").click( function(e){
+    $("span.domain-select input").click( function(e){
         var el = $(this);
-        var domain = el.find('input').val();
+        var domain = el.val();
         var pop = $('<div class="pop_up"></div>').appendTo('body').html('<span><h4>'+domain+'</h4>Errors</span>').dialog({
                 modal: true,
                 title: 'How would you like to Proceed for?',
@@ -65,32 +150,24 @@ $(document).ready(function(){
                     {
                         text: "Delete Now",
                         click: function(e){
-                            if(!el.data('selected') || el.data('selected') === undefined ){
-                                el.data('selected', true);
-                                el.find('input').attr('checked', true);
-                            }
-                            $('#mass_delete').trigger('click');
+                            fun = 'now';
                             $(this).dialog("close");
                             
                         }
                     },
                     {
-                        text: "Add to Batch",
+                        text: "Delete After",
                         click: function(e){
-                            if(!el.data('selected') || el.data('selected') === undefined ){
-                                el.data('selected', true);
-                                el.find('input').attr('checked', true);
-                                el.find('span').toggleClass('selected');
-                            }
+                            fun = 'delay';
                             $(this).dialog("close");   
                         }
                     },
                     {
-                        text: "Un Select",
+                        text: "Un Selecting",
                         click: function(e){
-                            el.data('selected', false);
-                            el.find('input').attr('checked', false);
-                            el.find('span').removeClass('selected');
+                            fun = 'unselect';
+                            el.attr('checked', false);
+                            e.stopImmediatePropagation();
                             $(this).dialog("close");   
                         }
                     }
@@ -101,7 +178,11 @@ $(document).ready(function(){
                 },
                 close: function(event, ui){
                     $('.body').toggle("fade");
-                    
+                    if(fun == 'now'){
+                        $('#mass_delete').trigger('click');
+                    }else if(fun == 'delay'){
+                        
+                    }                    
                 }
             });            
     });
@@ -136,13 +217,7 @@ $(document).ready(function(){
             input.value = error;
             $('form#delete-items').append(input);
         }
-        if($('#delete-notice').css('display') == 'none'){
-            $('#delete-notice').toggle();
-            var p = document.createElement('p');
-            var text = document.createTextNode('You have marked items for deletion from the database.  Be sure to click "Delete Selection" at the bottom of the page before leaving');
-            p.appendChild(text);
-            $('#delete-notice').append(p);
-        }
+        displayMessage('warning', 'delete-individual-notice', 'Individual Errors have been marked for deletion');
     });
     $('#submit-error-deletion').click(function(e){
         $('#delete-items').submit();
@@ -153,49 +228,40 @@ $(document).ready(function(){
     });
     $('.expand').click(function(e){
         var plugin = $(this).attr('id');
+        var IdName = plugin;
         plugin = plugin.toLowerCase();
         $.ajax({
             url: "details.php?plugin="+plugin,
             content: document.body
         }).done(function(data){
-            $('.importer-details').html(data);
-            $('.importer-details').toggle();
-            $('.importer-details-close').toggle();
+            var $obj = '.'+IdName+'-table';
+            var $back = $($obj).css('background-image');
+            $('.importer-details').html(data);            
+            var $docHeight = $(window).height();
+            var $detailsContainer = $('.importer-details-container');
+            var $details = $detailsContainer.find('.importer-details');
+            $detailsContainer.css({visibility: 'hidden', display: 'block'});
+            var $listHeight = $details.outerHeight();
+            var $diff = ($docHeight - $listHeight) / 2;
+            $detailsContainer.css({visibility: 'visible', display: 'none'});
+            var string = $diff + 'px 12.5%';
+            $details.css({margin: string, backgroundImage: $back});
+            $('.importer-details-container').toggle();
         });
     });
-    $('.importer-details-close').click(function(e){
-        $('.importer-details').toggle();
-        $('.importer-details-close').toggle();
-    });
-    $('input').focus(function(e){
-        var hint = 'hint-'+$(this).attr('name');
-        $('.'+hint).toggle();
-    });
     $('.add-field').click(function(e){
-        var field = '<fieldset class="aField"><legend>Field Name<input type="text" name="fieldName[]"></legend><label>Default Value</label><input type="text" name="fieldValue[]"><br></fieldset>';
+        var field = '<fieldset class="aField"><label><span>Field Name</span><input type="text" name="fieldName[]"></label><label><span>Default Value</span><input type="text" name="fieldValue[]"></label></fieldset>';
         $('#new_fields').append(field);
     });
     $('select.system').change(function(e){
         var plugin = $(this).val();
         $(location).attr('href',window.location.href+'&plugin='+plugin); 
     });
+    $('.importer-details').click(function(e){
+        e.stopPropagation(); 
+    });
+    $('.popUp-info').click(function(e){
+        $(this).toggle();
+    });
+    
 });
-
-function check_vals(){
-    var inputs = $('input');
-    for(var i=0;i<inputs.length;++i){
-        if($(inputs[i]).val() == undefined){
-            alert('All Text fields must be filled out to continue');
-            alert($(inputs[i]).attr('name'));
-            return false;
-        }
-    }
-    var selects = $('select');
-    for(var i=0;i<selects.length;++i){
-        if($(selects[i]).val() == undefined){
-            alert('All Select Drop Downs must be filled out to continue');
-            return false;
-        }
-    }
-    return true;
-}

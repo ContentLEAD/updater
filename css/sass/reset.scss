@@ -43,6 +43,7 @@ $h6-font-size: 0.67 * $base-font-size !default;
 $indent-amount: 40px !default;
 
 // After the default variables are set, import the required Compass partials.
+@import "compass/reset";
 @import "compass/support";
 @import "compass/css3/box-sizing";
 @import "compass/typography/vertical_rhythm";

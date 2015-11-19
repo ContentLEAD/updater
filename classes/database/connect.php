@@ -1,6 +1,4 @@
 <?php 
-//require 'error_test.php';
-//credential interface
 require_once('creds.php');
 /*
 *
@@ -12,20 +10,21 @@ class DBConnect implements Icreds {
     private $user;
     private $pass;
     private $db;
-    private $connection;
+    protected $connection;
     public $ENV;
+    public $errorDisplay = false;
     
     //constuct the db connection
     public function __construct(){
+        $this->ENV = Icreds::ENV;
+        if($this->ENV != 'LIVE'){
+            $this->errorDisplay = true;
+        }
         $this->host = Icreds::HOST;
         $this->user = Icreds::USER;
         $this->pass = Icreds::PASS;
         $this->db = Icreds::DB;
         $this->connection = $this->hook();
-        $this->ENV = Icreds::ENV;
-        if($this->ENV != 'LIVE'){
-            include_once 'error_test.php';
-        }
     }
     //make the database connection
     private function hook(){
@@ -121,7 +120,7 @@ class DBConnect implements Icreds {
         }
         $sql = "INSERT INTO `$table` set $statement";
         
-        echo $sql;
+        //echo $sql;
         $result = $this->connection->query($sql);
         //echo mysqli_errno($this->connection);
         return $result;
@@ -138,13 +137,31 @@ class DBConnect implements Icreds {
             return;
         }
     }
+    public function schema_connection($table){
+        $result = $this->connection->query("SELECT * FROM $table LIMIT 0");
+        return $result->fetch_fields();
+        
+    }
     public function customQuery($sql){
-        $result = $this->connection->query($sql);   
+        $result = $this->connection->query($sql);
+        return $result;
     }
     public function show_env(){
         if($this->ENV != 'LIVE'){
-            echo $this->ENV;
+            echo $this->ENV . ' : : ';
         }
     }
+    public function mysqli_error(){
+        return $this->connection->error;
+    }
+    public function query_for_table($table){
+        return $this->connection->query("DESCRIBE `$table`");   
+    }
+    public function connection_method($method){
+        return $this->connection->$method;
+        
+        
+    }
 }
+$con = new DBConnect();
 ?>

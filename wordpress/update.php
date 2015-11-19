@@ -1,9 +1,6 @@
 <?php
-require 'classes/connect.php';
-require 'inc/utils.php';
 //wordpress return for plugin update information
 if (isset($_REQUEST['action'])) {
-    $con = new DBConnect();
     $results = $con->retrieveData('wordpress', '*', array('ORDER BY'=> array('Vid DESC LIMIT 1')));
     $custom = unserialize($results[0]['custom']);
     $slug[$custom[0]['name']] = $custom[0]['value'];
