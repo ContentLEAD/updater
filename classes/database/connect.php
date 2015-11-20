@@ -181,6 +181,9 @@ class DBConnect implements Icreds {
         $pack = array($errors, $report);
         return $pack;
     }
+    public function getDBName(){
+        return $this->db;   
+    }
 }
 $con = new DBConnect();
 ?>
