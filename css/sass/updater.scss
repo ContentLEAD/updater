@@ -124,6 +124,7 @@ nav{
             @include add-prefix(justify-content, center);
             /*background-color:rgba(204,204,204,.45);*/
             width:75%;
+            min-width:1000px;
             padding:0 !important;
             height: 50px;
             
@@ -253,6 +254,79 @@ nav{
         }
     }
 
+}
+form{
+    background-color:rgba(250,250,250,.5);
+    padding-left:25px;
+    box-sizing:border-box;
+    h2{
+        font-family: "News Cycle";
+        font-size:28px;
+        margin-top:0px;
+    }
+    *{
+        box-sizing:border-box;
+    }
+    label{
+        display:block;
+        padding:0px 25px;
+        margin-bottom:15px;
+        font-size:18px;
+        text-transform:uppercase;
+        
+        &:after{
+            clear:both;
+            display:block;
+            content:"";
+        }
+        span{
+            display:inline-block;
+            width:35%;
+            float:left;
+            font-family:"Alegreya Sans SC";
+            font-weight:700;
+
+        }
+        input, select, textarea{
+            width:40%;
+            display:inline-block;
+            float:left;
+            
+            &[type="number"]{
+                max-width:50px; 
+            }
+            &[type="radio"]{
+                max-width:50px;
+                float:none;
+            }
+        }
+        textarea{
+            height:135px;
+            font-size:15px;
+        }
+        label{
+            margin-left:160px;
+            float:left;
+            width:150px;
+            font-size:24px;
+            font-family:"Alegreya Sans SC";
+            font-weight:700;
+            text-transform: uppercase;
+        }
+        input[type="text"]{
+            width:300px;
+        }
+    }
+    input[type="submit"]{
+        width: 200px;
+        padding: 10px;
+        font-family: "Alegreya Sans SC";
+        font-weight: 900;
+        font-size: 20px;
+        clear:both;
+        float:left;
+    }
+    
 }
 .align-left{
     float:left;
@@ -549,6 +623,9 @@ div#sorting{
 }
 div#sorting form{
     margin-top:0px;
+}
+section.main-container{
+    min-width:1000px;
 }
 .main-container .error_holder{
     //overflow:hidden;
@@ -1370,4 +1447,41 @@ form.remotes{
         clear:both;
         float:right;
     }
+}
+
+//hubspot page
+.hubclient-form{
+    span{
+        width:100%;
+    }
+    input[type="submit"]{
+        float:right;
+        width:100px;
+        padding:5px 5px;
+    }
+    select{
+        width:100%;
+    }
+    input[type="checkbox"]{
+        width:25px;
+    }
+}
+.hubspot-setup-form{
+    width:50%;
+    min-width:400px;
+    float:left;
+    .get-info{
+        width:150px;
+    }
+    span.tip{
+        width:70%;
+    }
+}
+iframe.results{
+    width:50%;
+    float:left;
+    min-height:200px;
+    height:1000px;
+    overflow-x: auto;
+    background-color:#fff;
 }
