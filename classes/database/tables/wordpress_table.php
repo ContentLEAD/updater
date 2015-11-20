@@ -76,4 +76,15 @@ class wordpress_table extends DataStructure{
         );
         return $column;
     }
+    protected function wordpress_table_update(){
+        global $date;
+        $formalName = ucfirst($this->table);
+        $result = $this->connection->insertData('systems', array('name' => $formalName, 'supported_since' => $date));
+        if($result){
+            
+        }
+        else{
+            echo $this->connection->mysqli_error();   
+        }
+    }
 }

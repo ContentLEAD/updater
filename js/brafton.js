@@ -58,17 +58,23 @@ function check_vals(){
     var inputs = $('input');
     for(var i=0;i<inputs.length;++i){
         if($(inputs[i]).val() == undefined || $(inputs[i]).val() == ''){
+            if($(inputs[i]).attr('name') == "PASSWORD"){ 
+                continue; 
+            }
             alert('All Text fields must be filled out to continue');
-            alert($(inputs[i]).attr('name'));
+            $(inputs[i]).css({backgroundColor: 'red'});
             return false;
         }
+        $(inputs[i]).css({backgroundColor: 'white'});
     }
     var selects = $('select');
     for(var i=0;i<selects.length;++i){
         if($(selects[i]).val() == undefined || $(selects[i]).val() == ''){
             alert('All Select Drop Downs must be filled out to continue');
+            $(selects[i]).css({backgroundColor: 'red'});
             return false;
         }
+        $(selects[i]).css({backgroundColor: 'white'});
     }
     return true;
 }

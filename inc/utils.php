@@ -2,7 +2,9 @@
 session_start();
 date_default_timezone_set('America/New_York');
 $date = date('Y-m-d');
-require_once BASE_PATH.'classes/database/database.php';
+if(file_exists(BASE_PATH.'classes/database/creds.php')){
+    require_once BASE_PATH.'classes/database/database.php';
+}
 
 //displays a list of importer for selection from the systems table
 function importer_list($plugin=NULL){

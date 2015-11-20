@@ -159,8 +159,27 @@ class DBConnect implements Icreds {
     }
     public function connection_method($method){
         return $this->connection->$method;
-        
-        
+    }
+    public function uploadDB($sql){
+        //$sql = $this->connection->real_escape_string($sql);
+        $result = $this->connection->multi_query($sql);
+        $errors = 0;
+        $report = array();
+        do {
+            /* store first result set */
+            if ($oresult = $this->connection->store_result()) {
+                while ($row = $oresult->fetch_row()) {
+                    $report[] = $row[0];
+                    ++$errors;
+                }
+                $oresult->free();
+            }
+            /* print divider */
+            if ($this->connection->more_results()) {
+            }
+        } while ($this->connection->next_result());
+        $pack = array($errors, $report);
+        return $pack;
     }
 }
 $con = new DBConnect();

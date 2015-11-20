@@ -5,6 +5,6 @@ if(file_exists(BASE_PATH .'classes/creds.php')){
     rename(BASE_PATH .'classes/creds.php', BASE_PATH .'classes/database/creds.php');
 }
 if(!file_exists(BASE_PATH .'classes/database/creds.php')){
-    header('LOCATION:/install/');
+    header("LOCATION:install/");
 }
 include_once BASE_PATH .'inc/utils.php';
