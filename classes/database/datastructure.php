@@ -42,11 +42,13 @@ abstract class DataStructure {
     }
     
     private function column_check(){
+        $db = $this->connection->getDBName();
         foreach($this->get_columns() as $column){
             $results = $this->connection->customQuery("SELECT * 
             FROM information_schema.COLUMNS 
             WHERE
-            TABLE_NAME = '$this->table' 
+            TABLE_SCHEMA = '$db'
+            AND TABLE_NAME = '$this->table' 
             AND COLUMN_NAME = '$column->column_name'");
             if($results->num_rows == 0){
                 $this->column_add($column);   
