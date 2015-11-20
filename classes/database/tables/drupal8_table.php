@@ -81,7 +81,7 @@ class drupal8_table extends DataStructure{
     protected function drupal8_table_update(){
         global $date;
         $formalName = ucfirst($this->table);
-        $result = $this->connection->insertData('systems', array('name' => $formalName, 'supported_since' => $date));
+        $result = $this->connection->insertData('systems', array('name' => $formalName, 'supported_since' => $date, 'logo' => 'drupal-skew.png'));
         if($result){
             
         }
