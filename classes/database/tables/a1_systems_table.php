@@ -1,5 +1,5 @@
 <?php
-class systems_table extends DataStructure{
+class a1_systems_table extends DataStructure{
     
     public function set_table(){
         $this->table = 'systems';
@@ -26,7 +26,7 @@ class systems_table extends DataStructure{
         $column[] = (object) array(
                     'column_name'    => 'supported_since',
                         'type'      => 'date',
-                        'default'   => 'CURRENT_TIMESTAMP'                               
+                        'default'   => 'NULL'                               
         );
         $column[] = (object) array(
                     'column_name'    => 'support_end',

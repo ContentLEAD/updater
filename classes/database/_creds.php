@@ -3,7 +3,7 @@
  *
  * Set Database Variables
  */
-$creds = $_REQUEST['creds'];
+$creds = $_REQUEST;
 $Icreds = "<?php
 /* 
  * Credential Interface
@@ -16,7 +16,7 @@ interface Icreds{
     const ENV = '{$creds['ENVIORMENT']}';
 }
 ";
-$fp=fopen('creds.php', 'w');
+$fp=fopen(BASE_PATH.'classes/database/creds.php', 'w');
 fwrite($fp, $Icreds);
 fclose($fp);
 ?>

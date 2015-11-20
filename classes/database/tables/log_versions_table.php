@@ -19,6 +19,11 @@ class log_versions_table extends DataStructure{
                         'default'   => 'NOT NULL',  
         );
         $column[] = (object) array(
+                    'column_name'    => 'site_url',
+                        'type'      => 'longtext',
+                        'default'   => 'NOT NULL',  
+        );
+        $column[] = (object) array(
                     'column_name'    => 'importer',
                         'type'      => 'varchar(100)',
                         'default'   => 'NOT NULL'                               
@@ -38,6 +43,6 @@ class log_versions_table extends DataStructure{
                         'type'      => 'text',
                         'default'   => 'NOT NULL'                               
         );
-        return $coloumn;
+        return $column;
     }
 }
