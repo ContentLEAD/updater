@@ -1,22 +1,19 @@
 <?php 
-require 'classes/connect.php';
-require 'inc/utils.php';
-$con = new DBConnect();
+require_once 'load.php';
 if(isset($_POST['deleting_items'])){
     $error_ids = implode(',',$_POST['error-id']);
     $delete = 'DELETE FROM errors WHERE Eid in ('.$error_ids.')';
     $result_delete = $con->customQuery($delete);
-    echo $result_delete;
 }
 $cond = "sync = '0'";
-if($page = $_GET['page']){
+if($page = isset($_GET['page'])? $_GET['page'] : false){
     $start = $page == 1? 0 : ($page -1) * 25;
 }else{
     $start = 0;
     $page = 1;
 }
 $sort = '';
-if($_GET['sort']){
+if(isset($_GET['sort'])){
     $type = $_GET['sort'];
     $cond .= " AND type = '$type'";
     $sort = '&sort='.$type;
@@ -24,65 +21,120 @@ if($_GET['sort']){
 $total = $con->retrieveData('errors','*', array(
                                                 'WHERE' => array(
                                                     " $cond ORDER BY date DESC")));
-$total_count = count($total);
-$results = $con->retrieveData('errors','*', array(
+$total_errors = count($total);
+$results = $con->retrieveData('errors','domain', array(
                                                 'WHERE' => array(
-                                                    " $cond ORDER BY date DESC LIMIT $start, 25")));
+          " $cond GROUP BY domain LIMIT $start, 25")));
+$total_clients = 0;
+for($i=0;$i<count($results);$i++){
+    $results[$i]['errors'] = $con->retrieveData('errors', '*', array(
+        'WHERE' => array(
+            sprintf("domain = '%s' ORDER BY date DESC", $results[$i]['domain']))));
+    $prots = array(
+            '/http:\/\//',
+            '/https:\/\//',
+            '/www./',
+            '/.com/'
+        );
+    $results[$i]['client'] = preg_replace($prots,'',$results[$i]['domain']);
+    $total_clients++;
+}
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Brafton Plugin/Module Version Control STAGING</title>
-        <link rel="stylesheet" href="/css/style.css">
-        <!--Jquery from google cdn-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="/js/brafton.js" type="text/javascript"></script>
+        <?php include_once BASE_PATH.'inc/scripts.php'; ?>
     </head>
-    <body>
+    <body class="page-<?php echo $page_name; ?>">
+        <header class="top">
+                <?php include BASE_PATH.'inc/nav.php'; ?>
+            </header>
         <div class="body">
-            <head>
-                <?php get_header('Error Report'); ?>
-            </head>
-            <section class="">
-                <div id="delete-notice" style="display:none; color:red;float:left; max-width:50%;">
-                    <button id="submit-error-deletion">Delete Selection</button>
-                </div>
+            <section class="main-container">
+                <?php get_header('Error Report', 'Sub Title'); ?>
+                <div class="error_holder">
                 <div id="sorting">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" id="sorting-form" style="font-size:22px;">
-                    Display only: <?php create_cms_drop('sort', 'Select CMS'); ?>
+                    <?php create_cms_drop('sort', 'Filter by CMS'); ?>
                     </form>
                 </div>
+                <div id="delete-notice">
+                    <button id="submit-error-deletion">Delete Selection</button>
+                </div>
                 <nav class="pagination">
-                    <?php if($page >= 2){ ?><a href="/errors.php?page=<?php echo $page -1 . $sort; ?>"><<< PREVIOUS </a> | <?php } ?><a href="/errors.php?page=<?php echo ++$page. $sort; ?>">NEXT >>></a><br/>Total of <?php echo $total_count; ?> Errors
+                    <?php if($page >= 2){ ?><a href="/errors.php?page=<?php echo $page -1 . $sort; ?>"><<< PREVIOUS </a> | <?php } ?><a href="/errors.php?page=<?php echo ($page + 1). $sort; ?>">NEXT >>></a>Total of <?php echo $total_errors; ?> Errors among <?php echo $total_clients; ?> Clients
                 </nav>
+                    <input type="button" id="mass_delete" value="mass_delete">
+                    <div class="clear-fix"></div>
                 <?php 
                 foreach($results as $result){ ?>
-                    <div class="newError">
-                        <?php $data = json_decode($result['error']); ?>
-                        <table class="error-report" id="error-<?php echo $result['Eid']; ?>">
-                            <tr>
-                                <td colspan="99"><div class="delete-error" id="<?php echo $result['Eid']; ?>"><button data-error="<?php echo $result['Eid']; ?>" class="delete-individual-error">Delete</button></div><h3>Error for <?php echo $result['type']; ?> on <?php echo $result['date']; ?></h3>Salesforce Status: <?php if($result['sync']){ echo 'Ticket Created'; }else{ echo 'No Ticket Created'; } ?></td>
-                            </tr>
-                            <tr>
-                               <?php 
-                                $vars = get_object_vars($data); 
-                                foreach($vars as $key => $value){
-                                    if($key == 'error'){ 
-                                        echo '</tr><tr>';
-                                        echo '<td colspan="99">'.$value.'</td>';
-                                    }else{
-                                        echo '<td>'.$key.' is: '.$value.'</td>';
-                                    }
-                                }
-                                ?>
-                                                              
-                            </tr>
-                        </table>
+                    <div class="error_card" id="<?php echo $result['domain']; ?>">
+                        <span class="domain-select">
+                            <label class="switch">
+                                <input class="switch-input" type="checkbox" name="domain-select[]" value="<?php echo $result['domain']; ?>"><!--<span>DELETE</span>--><span class="switch-label" data-on="Delete" data-off="Keep"></span><span class="switch-handle"></span>
+                            </label>
+                        </span>
+                        <div class="error_cont">
+                            <h2><?php echo $result['client']; ?></h2>
+                            <h3><?php echo $result['errors'][0]['type']; ?></h3>
+                            <p>Total Errors: <?php echo count($result['errors']); ?></p>
+                            <span class="domain_link"><a href="http://<?php echo $result['domain']; ?>"><?php echo $result['domain']; ?></a></span>
+                            <div class="error_list">
+                                <?php if(!isset($_COOKIE['error_help_1'])){ ?>
+                                    <div class="instructions error_help_1">
+                                        Click anywhere outside the list to return to the previous screen
+                                    </div>
+                                <?php } ?>
+                                <div class="error_listing">
+                                    <a href="//<?php echo $result['domain']; ?>"><?php echo $result['domain']; ?></a>
+                                <?php foreach($result['errors'] as $errors){ ?>
+                                    <section class="newError">
+                                        <?php $data = json_decode($errors['error']); ?>
+                                        <div class="error-report" id="error-<?php echo $errors['Eid']; ?>">
+                                            <div>
+                                               <div class="delete-error" id="<?php echo $errors['Eid']; ?>">
+                                                   <label class="switch">
+                                                       <input type="checkbox" data-error="<?php echo $errors['Eid']; ?>" class="switch-input delete-individual-error"><span class="switch-label" data-on="Delete" data-off="Keep"></span><span class="switch-handle"></span>
+                                                   </label>
+                                                </div>
+                                                <h3>Error for <?php echo $errors['type']; ?> reported at <?php echo $errors['date']; ?></h3>Salesforce Status: <?php if($errors['sync']){ echo 'Ticket Created'; }else{ echo 'No Ticket Created'; } ?>
+                                            </div>
+                                            <div class="report">
+                                               <?php 
+                                                $vars = get_object_vars($data); 
+                                                foreach($vars as $key => $value){
+                                                    if($key == 'error'){ 
+//                                                        echo '</span><span>';
+                                                        echo '<span class="reported_error">'.$value.'</span>';
+                                                    }else{
+                                                        if($key == 'Domain'){
+                                                            continue;
+                                                        }
+                                                        echo '<span><b>'.$key.'</b>: '.$value.'</span>';
+                                                    }
+                                                }
+                                                ?>
+
+                                            </div>
+                                        </div>
+                                    </section>
+                                <?php } ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 <?php } ?>
+                    </div>
+                                    <nav class="pagination">
+                    <?php if($page >= 2){ ?><a href="/errors.php?page=<?php echo $page -1 . $sort; ?>"><<< PREVIOUS </a> | <?php } ?><a href="/errors.php?page=<?php echo ($page + 1). $sort; ?>">NEXT >>></a>Total of <?php echo $total_errors; ?> Errors among <?php echo $total_clients; ?> Clients
+                </nav>
             </section>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="delete-items">
                     <input type="hidden" name="deleting_items" value="submition">
+                </form>
+                <form action="" method="post" id="domain-delete">
+                    <input type="hidden" name="deleting_domain" value="submition">
                 </form>
         </div>
     </body>

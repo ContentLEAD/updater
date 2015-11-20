@@ -1,5 +1,6 @@
 */repository
 classes/creds.php
+classes/database/creds.php
 db
 folder_errors
 logs
@@ -9,4 +10,5 @@ test.php
 .htpasswd
 .htaccess
 staging
-!drupal7/.htaccess
+css/.sass-cache
+css/config.rb

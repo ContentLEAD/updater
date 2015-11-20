@@ -1,5 +1,5 @@
-<?php include 'classes/connect.php'; ?>
-<?php 
+<?php
+require_once 'load.php';
 $table = $_GET['plugin'];
 $cond = array(
         'ORDER BY'  => array(
@@ -12,27 +12,18 @@ if(isset($_GET['paged'])){
         'ORDER BY'  => array(
             "Vid ASC LIMIT $page, 10"));
 }
-
-$details = new DBConnect();
-$results = $details->retrieveData($table, '*', $cond);
+$results = $con->retrieveData($table, '*', $cond);
 ?>
-<h2><?php echo strtoupper($table); ?></h2>
-<span>Previous 10 updates available</span>
-<table class="details full">
-    <tr>
-        <th>Plugin Name</th>
-        <th>Version</th>
-        <th>Details</th>
-        <th>Features/Bugs</th>
-    </tr>
+<section class="details full">
+    <h2><?php echo strtoupper($table); ?></h2>
     <?php if(!$results){ echo '<h2>No previous verions to display</h2>'; }
     else{
         for($i=0;$i<count($results);++$i){ ?>
-    <tr>
-        <td style="position:relative;"><?php echo $results[$i]['name']; ?><span class="options"><a href="<?php echo $table.'/repository/'.$table.'-'.$results[$i]['version'].'.zip'; ?>"><img src="images/download.png" class="down-icon"></a></span></td>
-        <td><?php echo $results[$i]['code_name'].' ver: '.$results[$i]['version'];; ?></td>
-        <td><?php echo $results[$i]['description']; ?></td>
-        <td><ul>
+    <article class="version-details">
+        <!--<h3><?php echo $results[$i]['name']; ?><!--<span class="options"><a href="<?php echo $table.'/repository/'.$table.'-'.$results[$i]['version'].'.zip'; ?>"><img src="images/download.png" class="down-icon"></a></span></h3>-->
+        <p><?php echo $results[$i]['code_name'].' ver: '.$results[$i]['version']; ?></p>
+            <a href="<?php echo $table.'/repository/'.$table.'-'.$results[$i]['version'].'.zip'; ?>" class="download-stored-repo" title="Download this version of the <?php echo $results[$i]['name']; ?> "><i class="fa fa-download fa-4x"></i></a>
+            <ul>
             <?php 
             $feats =  $results[$i]['features'];
             $array = array();
@@ -41,11 +32,13 @@ $results = $details->retrieveData($table, '*', $cond);
                 echo '<li>'.$feature.'</li>';
             } ?>
             </ul>
-        </td>
-    </tr>
+        <p>
+        <?php echo $results[$i]['description']; ?>
+        </p>
+    </article>
         <?php }
     }
     if(isset($page)){ ?>
         <!-- pagination here --> 
     <?php } ?>
-</table>
+</sesction>

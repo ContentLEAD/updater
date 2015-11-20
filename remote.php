@@ -1,7 +1,5 @@
 <?php 
-require 'classes/connect.php';
-require 'inc/utils.php';
-$con = new DBConnect();
+require_once 'load.php';
 ?>
 <!DOCTYPE html>
 <html>

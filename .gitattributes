@@ -1,2 +1,3 @@
 '.htaccess merge=ours'
 '.gitignore merge=ours'
+'load.php merge=ours'

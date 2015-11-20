@@ -1,9 +1,5 @@
 <?php
 header("Content-Type: text/xml");
-require '../classes/connect.php';
-require '../inc/utils.php';
-
-$con = new DBConnect();
     $results = $con->retrieveData('drupal7', '*', array('ORDER BY'=> array('Vid DESC LIMIT 2')));
     $custom[0] = unserialize($results[0]['custom']);
     $custom[1] = unserialize($results[1]['custom']);
@@ -13,18 +9,6 @@ foreach($custom[0] as $key=>$value){
 foreach($custom[1] as $key=>$value){
     $drupal[1][$value['name']] = $value['value'];
 }
-/*
-echo '<pre>';
-var_dump($custom);
-echo '</pre>';
-echo '<pre>';
-var_dump($drupal);
-echo '</pre>';
-$dump = $results;
-echo '<pre>';
-var_dump($dump);
-echo '</pre>';
-*/
 $dec = <<<DEC
 <?xml version="1.0" encoding="utf-8"?>
 DEC;

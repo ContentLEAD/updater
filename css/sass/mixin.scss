@@ -1,0 +1,19 @@
+@mixin add-prefix($rule, $value){
+    -webkit-#{$rule}: $value;
+    -moz-#{$rule}: $value;
+    -ms-#{$rule}: $value;
+    -o-#{$rule}: $value;
+    #{$rule}: $value;
+}
+@mixin add-background-color($color, $opacity: 1){
+    background-color: $color;
+    background-color: rgba($color, $opacity);
+}
+@mixin add-prefix-value($declarations, $prefixes:(webkit moz ms o)){
+    @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+    #{$property}: $value;
+  }
+}

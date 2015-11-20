@@ -1,28 +1,19 @@
 <?php
-require 'classes/connect.php';
-require 'inc/utils.php';
 if(isset($_REQUEST['key'])){
     $key = $_REQUEST['key'];
-    $keycheck = new DBConnect();
-    if($results = $keycheck->retrieveData('keys','*', array('WHERE'=> array("encryptionKey='$key'")))){
+    if($results = $con->retrieveData('keys','*', array('WHERE'=> array("encryptionKey='$key'")))){
         //log special error key invalid
         echo '<br>Logging Error Report<br>';
         $type = $results[0]['importer'];
         $error = $_REQUEST['error'];
-        echo '<pre>';
-        //var_dump($_REQUEST);
-        echo $error;
-        echo '</pre>';
-        
+        $url = json_decode($error)->Domain;
         $data = array(
             'type'          => $type,
             'date'          => $date,
+            'domain'        => $url,
             'error'         => $error
         );
-        echo '<pre>';
-        //var_dump($data);
-        $logError = new DBConnect();
-        $logError->insertData('errors',$data);
+        $con->insertData('errors',$data);
     }
     else{
        echo 'Encryption key Not Found';

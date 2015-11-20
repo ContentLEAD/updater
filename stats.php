@@ -1,7 +1,5 @@
 <?php 
-require 'classes/connect.php';
-require 'inc/utils.php';
-$con = new DBConnect();
+require 'load.php';
 $results = $con->retrieveData('log_versions', 'COUNT(lid)', array(
                                                                 'WHERE' => array(
                                                                     " importer = 'wordpress' ")));
@@ -37,7 +35,7 @@ $output = $out;
                 <?php get_header('Current User Stats'); ?>
             </head>
             <section>
-                <?php //echo '<pre>';var_dump($results); echo '</pre>'; ?>
+                
                 <div class="quick">
                     <h2>Quick Stats</h2>
                     <label>Total Wordpress Users</label><span class="result"><?php echo $output['importer-wordpress']; ?></span><label>Total Drupal 7 Users</label><span class="result"><?php echo $output['importer-drupal7']; ?></span><label>Total Joomla 3 Users</label><span class="result"><?php echo $output['importer-joomla3']; ?></span><label>Total Hubspot Users</label><span class="result"><?php echo $output['importer-hubspot-cos']; ?></span><label>Total DNN Users</label><span class="result"><?php echo $output['importer-dnn']; ?></span><br/>

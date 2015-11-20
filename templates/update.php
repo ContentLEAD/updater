@@ -1,7 +1,12 @@
 <?php
-require 'classes/connect.php';
-require 'inc/utils.php';
 echo 'this is the update page<br>';
-echo 'Build your auto Update features Here<br>';
-echo 'You will need to include the classes/connection.php with the connection class and the inc/utils.php for functions you will need';
+$msg = <<<EOC
+<h1>Build your auto Update features Here</h1>
+<p>Each CMS will have special requirements for hosting your created plugin/module/extension</p>
+<p>Be sure the url the cms is checking for updates has the following structure<br/>
+<blockquote style="background-color:#CCC; color:#000; display: inline-block; padding:35px;font-style:italic">
+u/{pluginName}/update/{action}/{any needed additional parameters
+</blockquote>
+EOC;
+echo $msg;
 ?>

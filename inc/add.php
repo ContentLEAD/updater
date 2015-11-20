@@ -1,21 +1,53 @@
 <input type="hidden" name="act" value="add">
-                    <fieldset>
-                        <legend>Add New Importer to our Library</legend>
-                        <label>Importers CMS</label><input type="text" name="system"><br>
-                        <label>Importer Name</label><input type="text" name="IName"><br>
-                        <label>Today's Date</label><input type="date" name="supported_since"><br>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Importer Details</legend>
-                        <label>Version #<br><span class="hint-version">Please follow established version naming conventions.  <a href="https://docs.google.com/document/d/19fLW1PrUsuvZq49m1fPHV7gX_Tkvftk3NK57QTaDBL0/edit">See Doc</a></span></label><input type="text" name="version"><br>
-                        <label>Plugin Description</label><br><label></label><textarea name="description"></textarea><br>
-                        <label>Requires<br><span class="hint-requires"></span></label><input type="text" name="requires"><br>
-                        <label>Tested Up to:</label><input type="text" name="tested"><br>
-                        <label>Download From<br><span class="hint-download">Specify the complete URL for download from GitHub</span></label><input type="url" name="download"><br>
-                        <label>Importer Version Class<span class="hint-codes">See <a href"https://docs.google.com/a/brafton.com/document/d/1JHfReBDf1dxxS83tgDUtjfIM9T3fR__jSwPtWqXrUrg/edit?usp=sharing">Code List</a> to determine What this Verion should be.</span></label><?php display_code_names(); ?><br>
-                        <label>Features/Bugs<br><span class="hint-features">List Known Bugs that exsist (no one is perfect) </span></label><input type="text" name="features"><br>
-                    </fieldset>
-                    <fieldset id="new_fields">
-                        <legend>Custom Fields to Add for Automatic Update Control<img src="images/plus.png" class="add-field" title="Add another Field"></legend>    
-                    </fieldset>
-                    <input type="submit" value="Submit">
+    <h2>Add New Plugin/Module to our Library</h2>
+        
+        <label>
+            <span>Importers CMS</span>
+                <input type="text" name="system">
+        </label>
+        <label>
+            <span>Importer Name</span>
+                <input type="text" name="IName">
+        </label>
+        <label>
+            <span>Today's Date</span>
+            <input type="date" name="supported_since" value="<?php echo $date; ?>">
+        </label>
+        <label>
+            <span>Importer Name</span>
+        <input type="file" name="systemLogo">
+        </label>
+        <h2>Importer Details</h2>
+        <label>
+            <span>Version #</span>
+            <input type="text" name="version">
+        </label>
+        <label>
+            <span>Plugin Description</span>
+            <textarea name="description"></textarea>
+        </label>
+        <label>
+            <span>Requires</span>
+            <input type="text" name="requires">
+        </label>
+        <label>
+            <span>Tested Up to:</span>
+            <input type="text" name="tested">
+        </label>
+        <label>
+            <span>Download From</span>
+            <input type="url" name="download">
+        </label>
+        <label>
+            <span>Importer Version Class</span>
+            <?php display_code_names(); ?>
+        </label>
+        <label>
+            <span>Features added/Bugs fixed</span>
+            <textarea name="features"></textarea>
+        </label>
+    <fieldset id="new_fields">
+        <legend>Custom Fields to Add for Automatic Update Control<i class="fa fa-plus-circle add-field" title="Add another Field"></i><!--<img src="images/plus.png" class="add-field" title="Add another Field">--></legend>    
+    </fieldset>
+    <input type="submit" value="Submit">
+<span class="hint-version">Please follow established version naming conventions.<a href="https://docs.google.com/document/d/19fLW1PrUsuvZq49m1fPHV7gX_Tkvftk3NK57QTaDBL0/edit">See Doc</a></span>
