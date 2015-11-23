@@ -97,7 +97,7 @@ $client_total = count($clientList);
                     <span>Blog Id</span>
                     <select id="blogs" name="blog_id">
                     </select>
-                    <span class="old-val"><?php if(isset($data)){ echo $data->blog_id; } ?></span>
+                    <input type="hidden" class="blogs-old-val" value="<?php if(isset($data)){ echo $data->blog_id; } ?>">
                 </label>
                 <label>
                     <span>Post Status</span>
@@ -111,7 +111,7 @@ $client_total = count($clientList);
                     <span>Author_id</span>
                     <select id="authors" name="author_id">
                     </select>
-                    <span class="old-val"><?php if(isset($data)){ echo $data->author_id; }?></span>
+                    <input type="hidden" class="authors-old-val" value="<?php if(isset($data)){ echo $data->author_id; }?>">
                 </label>
                 <label>
                     <span>Image Upload</span>
@@ -120,7 +120,8 @@ $client_total = count($clientList);
                 <label>
                     <span>Image Location</span>
                     <select id="folders" name="image_folder">
-                    </select><span class="old-val"><?php if(isset($data)){ echo $data->image_folder; } ?></span>
+                    </select>
+                    <input type="hidden" class="folder-old-val" value="<?php if(isset($data)){ echo $data->image_folder; } ?>">
                 </label>
                 <label>
                     <span>Video Import</span>
@@ -200,8 +201,16 @@ $client_total = count($clientList);
                 var authors = obj['authors'];
                 var folders = obj['folders'];
                 $('#blogs').html(blogs);
+                var old_blog = $('.blogs-old-val').val();
+                if(old_blog != '' || old_blog != undefined){
+                    $('#blogs[value="'+old_blog+'"]').attr('selected', true);  
+                }
                 $('#authors').html(authors);
+                var old_authors = $('.authors-old-val').val();
+                $('#authors[value="'+old_authors+'"]').attr('selected', true);
                 $('#folders').html(folders);
+                var old_folders = $('.folders-old-val').val();
+                $('#folders[value="'+old_folders+'"]').attr('selected', true);
             });
         });
         $('#clients_hub').change(function(e){
