@@ -72,6 +72,7 @@ function folder_list($key){
     
 }
 function add_client(){
+    echo '<pre>';
     $txtString = array();
     foreach($_POST as $key => $val){
         $$key = $val;
@@ -80,6 +81,8 @@ function add_client(){
     $txtString = json_encode($txtString);
     if(!is_dir(HUB_BASE.$client)){
         $newDir = mkdir(HUB_BASE.$client, 0777);
+        var_dump($newDir);
+        
     }
     $string = "<?php";
 $string .=<<<EOC
@@ -120,20 +123,23 @@ define("video_end_button_link", '$video_end_button_link');
 EOC;
     $string .= '?>';
     $cred = fopen(HUB_BASE.$client.'/creds.php', 'w');
+    var_dump($cred);
     $res = fwrite($cred, $string);
     fclose($cred);
     $json = fopen(HUB_BASE.$client.'/creds.json','w');
+    var_dump($json);
     fwrite($json,$txtString);
     fclose($json);
     if($_POST['hub_client'] == 'new_hub_client'){
-        copy(HUB_BASE.'Hubspot-COS/client.php', HUB_BASE.$client.'/client.php');
-        chmod(HUB_BASE.$client.'/client.php', 0777);
+        var_dump(copy(HUB_BASE.'Hubspot-COS/client.php', HUB_BASE.$client.'/client.php'));
+        var_dump(chmod(HUB_BASE.$client.'/client.php', 0777));
         chmod(HUB_BASE.$client.'/creds.php', 0666);
         chmod(HUB_BASE.$client.'/creds.json',0666);
         echo 'Successfully added '.$client.' to the hubspot importer';
     }else{
         echo 'Successfully edited '.$client.' on the hubspot importer';
     }
+    echo '</pre>';
 }
 
 if(isset($_POST['TYPE']) && ($_POST['TYPE'] == 'get_info')){
