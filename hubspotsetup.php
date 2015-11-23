@@ -106,7 +106,7 @@ $client_total = count($clientList);
                 </label>
                 <label>
                     <span>Dynamic Author</span>
-                    TRUE<input type="radio" name="dynamic_author" value="true" <?php if(!isset($data)){ echo 'checked'; } else if(isset($data)){ matchOptions($data->dynamic_author,'true', 'checked'); } ?>>FALSE<input type="radio" name="dynamic_author" value="false" <?php if(isset($data)){ matchOptions($data->dynamic_author,'false', 'checked'); } ?>>
+                    TRUE<input type="radio" name="dynamic_author" value="true" <?php if(isset($data)){ matchOptions($data->dynamic_author,'true', 'checked'); } ?>>FALSE<input type="radio" name="dynamic_author" value="false" <?php if(!isset($data)){ echo 'checked'; } else if(isset($data)){ matchOptions($data->dynamic_author,'false', 'checked'); } ?>>
                 </label>
                 <label>
                     <span>Author_id</span>
