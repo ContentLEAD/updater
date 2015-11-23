@@ -417,7 +417,7 @@ form label span {
   font-weight: 700;
 }
 form label input, form label select, form label textarea {
-  width: 40%;
+  width: 60%;
   display: inline-block;
   float: left;
 }
@@ -442,7 +442,7 @@ form label label {
   text-transform: uppercase;
 }
 form label input[type="text"] {
-  width: 300px;
+  max-width: 300px;
 }
 form input[type="submit"] {
   width: 200px;
@@ -1572,6 +1572,10 @@ form.remotes label textarea {
   float: right;
 }
 
+div.install-instructions.hubspot h2 {
+  margin-top: 0px;
+}
+
 .hubclient-form span {
   width: 100%;
 }
@@ -1585,6 +1589,12 @@ form.remotes label textarea {
 }
 .hubclient-form input[type="checkbox"] {
   width: 25px;
+}
+.hubclient-form span.expand {
+  float: right;
+  font-size: 12px;
+  font-weight: 300;
+  width: 330px;
 }
 
 .hubspot-setup-form {

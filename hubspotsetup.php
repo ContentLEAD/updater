@@ -1,17 +1,17 @@
 <?php 
 include 'load.php';
-define("tmp", "E:/tech-server\hubspot\cos/");
+define("HUB_BASE", "/var/www/html/tech/hubspot/test/");
 include BASE_PATH.'inc/setupFunctions.php';
 $type = 'new';
-$clients = scandir(tmp); 
+$clients = scandir(HUB_BASE); 
 $clientList = array();
 foreach($clients as $client){
-    if($client != '.' && $client != '..' && $client != 'Hubspot-COS' && is_dir(tmp.$client)){
+    if($client != '.' && $client != '..' && $client != 'Hubspot-COS' && is_dir(HUB_BASE.$client)){
         $clientList[] = $client;   
     }
 }
 if(isset($_POST['edit_hub_client'])){
-    $filename = '/var/www/html/tech/hubspot/cos/'.$_POST['clients_hub_edit'].'/creds.json';
+    $filename = HUB_BASE.$_POST['clients_hub_edit'].'/creds.json';
     $json = fopen($filename, 'r');
     $data = fread($json,filesize($filename));
     $data = json_decode($data);
@@ -34,7 +34,7 @@ $client_total = count($clientList);
         <div class="body">
             <section class="main-container">
                <?php get_header('Brafton Plugin and Module Version Control', 'Installation Wizard'); ?>
-                <div class="install-instructions">
+                <div class="install-instructions hubspot">
                     <h2>Setup a clients Hubspot Importer</h2>
                     <p>Currently you will need to set up a cron task through shell access when your done.</p>
                     <div style="clear:both;">Total Hubspot-COS Client: <?php echo $client_total; ?></div>
@@ -50,10 +50,10 @@ $client_total = count($clientList);
                     </select>
                 </label>
                 <label>
-                    <input type="submit" value="Edit">
+                   <!-- <input type="submit" value="Edit"> -->
                     <input type="hidden" name="edit_hub_client" value="edit">
                 </label>    
-                    <label>
+                    <label title="This will output complete details during the import run.">
                     <span>Run an Importer</span><input type="checkbox" id="debug" value="true">DEBUG MODE
                     <select id="clients_hub">
                         <option>Choose a Client</option>
@@ -185,6 +185,10 @@ $client_total = count($clientList);
             }
             return val;   
         }
+    $(document).ready(function(){
+        $('#clients_hub_edit').change(function(e){
+            $('.hubclient-form').submit();
+        });
         $('#get-info').click(function(){
             var hubKey = $('#hub_apiKey').val();
             $.ajax({
@@ -217,6 +221,7 @@ $client_total = count($clientList);
                 });
              <?php   }
         ?>
+    });
     </script>
 </body>
 </html>

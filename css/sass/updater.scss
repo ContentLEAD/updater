@@ -288,7 +288,7 @@ form{
 
         }
         input, select, textarea{
-            width:40%;
+            width:60%;
             display:inline-block;
             float:left;
             
@@ -314,7 +314,7 @@ form{
             text-transform: uppercase;
         }
         input[type="text"]{
-            width:300px;
+            max-width:300px;
         }
     }
     input[type="submit"]{
@@ -1450,6 +1450,11 @@ form.remotes{
 }
 
 //hubspot page
+div.install-instructions.hubspot{
+    h2{
+        margin-top:0px;
+    }
+}
 .hubclient-form{
     span{
         width:100%;
@@ -1464,6 +1469,12 @@ form.remotes{
     }
     input[type="checkbox"]{
         width:25px;
+    }
+    span.expand{
+        float:right;
+        font-size:12px;
+        font-weight:300;
+        width:330px;
     }
 }
 .hubspot-setup-form{
