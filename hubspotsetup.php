@@ -204,21 +204,21 @@ $client_total = count($clientList);
                 var old_blog = $('.blogs-old-val').val();
                 console.log(old_blog);
                 if(old_blog != '' && old_blog != undefined){
-                    $('#blogs[value="'+old_blog+'"]').attr('selected', 'selected');  
+                    console.log(old_blog);
+                    $('#blogs option[value="'+old_blog+'"]').attr('selected', 'selected');  
                 }
                 $('#authors').html(authors);
                 var old_authors = $('.authors-old-val').val();
                 console.log(old_authors);
                 if(old_authors != '' && old_authors != undefined){
-                    $('#authors[value="'+old_authors+'"]').attr('selected', 'selected');    
+                    $('#authors option[value="'+old_authors+'"]').attr('selected', 'selected');    
                 }
                 $('#folders').html(folders);
                 var old_folders = $('.folders-old-val').val();
                 console.log(old_folders);
                 if(old_folders != '' && old_folders != undefined){
-                    $('#folders[value="'+old_folders+'"]').attr('selected', 'selected');    
+                    $('#folders option[value="'+old_folders+'"]').attr('selected', 'selected');    
                 }
-                $('#folders[value="'+old_folders+'"]').attr('selected', 'selected');
             });
         });
         $('#clients_hub').change(function(e){
