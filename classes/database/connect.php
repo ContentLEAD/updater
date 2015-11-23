@@ -151,6 +151,9 @@ class DBConnect implements Icreds {
             echo $this->ENV . ' : : ';
         }
     }
+    public function get_env(){
+        return $this->ENV;   
+    }
     public function mysqli_error(){
         return $this->connection->error;
     }

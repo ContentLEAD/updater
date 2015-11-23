@@ -1,6 +1,7 @@
 <?php
-include_once 'utils.php';
-include_once HUB_BASE.'Hubspot-COS/BraftonLibrary/BraftonLibrary.php';
+if(file_exists(HUB_BASE.'Hubspot-COS/BraftonLibrary/BraftonLibrary.php')){
+    include_once HUB_BASE.'Hubspot-COS/BraftonLibrary/BraftonLibrary.php';
+}
 function matchOptions($value, $match, $term){
     if($value == $match){
         echo $term;
@@ -79,7 +80,7 @@ function add_client(){
     }
     $txtString = json_encode($txtString);
     if(!is_dir(HUB_BASE.$client)){
-        $newDir = mkdir(HUB_BASE.$client, 0777);
+        $newDir = mkdir(HUB_BASE.$client, 0777);        
     }
     $string = "<?php";
 $string .=<<<EOC
@@ -121,7 +122,6 @@ EOC;
     $string .= '?>';
     $cred = fopen(HUB_BASE.$client.'/creds.php', 'w');
     $res = fwrite($cred, $string);
-    fclose($cred);
     $json = fopen(HUB_BASE.$client.'/creds.json','w');
     fwrite($json,$txtString);
     fclose($json);
@@ -130,9 +130,9 @@ EOC;
         chmod(HUB_BASE.$client.'/client.php', 0777);
         chmod(HUB_BASE.$client.'/creds.php', 0666);
         chmod(HUB_BASE.$client.'/creds.json',0666);
-        echo 'Successfully added '.$client.' to the hubspot importer';
+        echo '<pre class="notice">Successfully added '.$client.' to the hubspot importer</pre>';
     }else{
-        echo 'Successfully edited '.$client.' on the hubspot importer';
+        echo '<pre class="notice">Successfully edited '.$client.' on the hubspot importer</pre>';
     }
 }
 

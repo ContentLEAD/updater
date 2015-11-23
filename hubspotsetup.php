@@ -1,7 +1,5 @@
 <?php 
 include 'load.php';
-define("HUB_BASE", "/var/www/html/tech/hubspot/test/");
-include BASE_PATH.'inc/setupFunctions.php';
 $type = 'new';
 $clients = scandir(HUB_BASE); 
 $clientList = array();
@@ -33,11 +31,11 @@ $client_total = count($clientList);
             </header>
         <div class="body">
             <section class="main-container">
-               <?php get_header('Brafton Plugin and Module Version Control', 'Installation Wizard'); ?>
+               <?php get_header('Brafton Plugin and Module Version Control', 'Hubspot Setup'); ?>
+                <?php if(isset($devMessage)){ echo $devMessage; } ?>
                 <div class="install-instructions hubspot">
                     <h2>Setup a clients Hubspot Importer</h2>
-                    <p>Currently you will need to set up a cron task through shell access when your done.</p>
-                    <div style="clear:both;">Total Hubspot-COS Client: <?php echo $client_total; ?></div>
+                    <p>Running a hubspot importer now shows results in this screen. Currently you will need to set up a cron task through shell access when your done.</p>
                 </div>
                 <form action="" method="post" style="width:40%;float:left" class="hubclient-form">
                 <label>
@@ -62,6 +60,7 @@ $client_total = count($clientList);
                         <?php } ?>
                     </select>
                 </label>
+                    <div style="clear:both;">Total Hubspot-COS Client: <?php echo $client_total; ?></div>
                 </form>
             <form id="hub-setup" class="hubspot-setup-form" method="post" action="" onsubmit="return checkVitals();">
             
@@ -99,34 +98,35 @@ $client_total = count($clientList);
                     <span>Blog Id</span>
                     <select id="blogs" name="blog_id">
                     </select>
-                    <span class="old-val"><?php if(isset($data)){ echo $data->blog_id; } ?></span>
+                    <input type="hidden" class="blogs-old-val" value="<?php if(isset($data)){ echo $data->blog_id; } ?>">
                 </label>
                 <label>
                     <span>Post Status</span>
-                    Published<input type="radio" name="post_status" value="published" <?php if(isset($data)){ matchOptions($data->post_status,'published', 'checked'); } ?>>Draft<input type="radio" name="post_status" value="draft" <?php if(isset($data)){ matchOptions($data->post_status,'draft', 'checked'); } ?>>
+                    Published<input type="radio" name="post_status" value="published" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){    matchOptions($data->post_status,'published', 'checked'); $published_default = true;} ?>>Draft<input type="radio" name="post_status" value="draft" <?php if(isset($data)){ matchOptions($data->post_status,'draft', 'checked'); $published_default = true;} ?>>
                 </label>
                 <label>
                     <span>Dynamic Author</span>
-                    TRUE<input type="radio" name="dynamic_author" value="true" <?php if(isset($data)){ matchOptions($data->dynamic_author,'true', 'checked'); } ?>>FALSE<input type="radio" name="dynamic_author" value="false" <?php if(isset($data)){ matchOptions($data->dynamic_author,'false', 'checked'); } ?>>
+                    TRUE<input type="radio" name="dynamic_author" value="true" <?php if(isset($data)){ matchOptions($data->dynamic_author,'true', 'checked'); } ?>>FALSE<input type="radio" name="dynamic_author" value="false" <?php if(!isset($data)){ echo 'checked'; } else if(isset($data)){ matchOptions($data->dynamic_author,'false', 'checked'); } ?>>
                 </label>
                 <label>
                     <span>Author_id</span>
                     <select id="authors" name="author_id">
                     </select>
-                    <span class="old-val"><?php if(isset($data)){ echo $data->author_id; }?></span>
+                    <input type="hidden" class="authors-old-val" value="<?php if(isset($data)){ echo $data->author_id; }?>">
                 </label>
                 <label>
                     <span>Image Upload</span>
-                    TRUE<input type="radio" name="image_import" value="true" <?php if(isset($data)){ matchOptions($data->image_import,'true', 'checked'); } ?>>FALSE<input type="radio" name="image_import" value="false" <?php if(isset($data)){ matchOptions($data->image_import,'false', 'checked'); } ?>>
+                    TRUE<input type="radio" name="image_import" value="true" <?php if(isset($data)){ matchOptions($data->image_import,'true', 'checked'); } ?>>FALSE<input type="radio" name="image_import" value="false" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){ matchOptions($data->image_import,'false', 'checked'); } ?>>
                 </label>
                 <label>
                     <span>Image Location</span>
                     <select id="folders" name="image_folder">
-                    </select><span class="old-val"><?php if(isset($data)){ echo $data->image_folder; } ?></span>
+                    </select>
+                    <input type="hidden" class="folder-old-val" value="<?php if(isset($data)){ echo $data->image_folder; } ?>">
                 </label>
                 <label>
                     <span>Video Import</span>
-                    TRUE<input type="radio" name="import_video" value="true" <?php if(isset($data)){ matchOptions($data->import_video,'true', 'checked'); } ?>>FALSE<input type="radio" name="import_video" value="false" <?php if(isset($data)){ matchOptions($data->import_video,'false', 'checked'); } ?>>
+                    TRUE<input type="radio" name="import_video" value="true" <?php if(isset($data)){ matchOptions($data->import_video,'true', 'checked'); } ?>>FALSE<input type="radio" name="import_video" value="false" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){ matchOptions($data->import_video,'false', 'checked'); } ?>>
                 </label>
                 <label>
                     <span>Public Key</span>
@@ -139,7 +139,7 @@ $client_total = count($clientList);
                 <label>
                     <span>Video Player</span>
                     <select name="video_player">
-                        <option value="atlantisjs" <?php if(isset($data)){ matchOptions($data->video_player,'atlantisjs', 'selected'); } ?>>Atlantis JS</option>
+                        <option value="atlantisjs" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){ matchOptions($data->video_player,'atlantisjs', 'selected'); } ?>>Atlantis JS</option>
                         <option value="videojs" <?php if(isset($data)){ matchOptions($data->video_player,'videojs', 'selected'); } ?>>Video JS</option>
                     </select>
                 </label>
@@ -173,7 +173,7 @@ $client_total = count($clientList);
                     <input type="submit" value="<?php echo $type; ?> Client">
                 </label>
             </form>
-            <iframe class="results" src=""></iframe>
+            <iframe class="results" src=""><?php if(isset($devMessage)){ echo $devMessage; } ?></iframe>
             </section>
         </div>
 <script>
@@ -192,7 +192,7 @@ $client_total = count($clientList);
         $('#get-info').click(function(){
             var hubKey = $('#hub_apiKey').val();
             $.ajax({
-                url: "inc/setupFunctions.php",
+                url: "../load.php",
                 method: "POST",
                 data: { key: hubKey, TYPE: 'get_info'}                
             }).done(function(data){
@@ -201,8 +201,20 @@ $client_total = count($clientList);
                 var authors = obj['authors'];
                 var folders = obj['folders'];
                 $('#blogs').html(blogs);
+                var old_blog = $('.blogs-old-val').val();
+                if(old_blog != '' && old_blog != undefined){
+                    $('#blogs option[value="'+old_blog+'"]').attr('selected', 'selected');  
+                }
                 $('#authors').html(authors);
+                var old_authors = $('.authors-old-val').val();
+                if(old_authors != '' && old_authors != undefined){
+                    $('#authors option[value="'+old_authors+'"]').attr('selected', 'selected');    
+                }
                 $('#folders').html(folders);
+                var old_folders = $('.folders-old-val').val();
+                if(old_folders != '' && old_folders != undefined){
+                    $('#folders option[value="'+old_folders+'"]').attr('selected', 'selected');    
+                }
             });
         });
         $('#clients_hub').change(function(e){
