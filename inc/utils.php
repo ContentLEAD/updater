@@ -5,7 +5,11 @@ $date = date('Y-m-d');
 if(file_exists(BASE_PATH.'classes/database/creds.php')){
     require_once BASE_PATH.'classes/database/database.php';
 }
-include_once BASE_PATH . 'inc/setupFunctions.php';
+if(file_exists(BASE_PATH . 'inc/setupFunctions.php')){
+    include_once BASE_PATH . 'inc/setupFunctions.php';
+}else{
+    
+}
 //displays a list of importer for selection from the systems table
 function importer_list($plugin=NULL){
     global $con;

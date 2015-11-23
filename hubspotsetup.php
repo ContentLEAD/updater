@@ -101,11 +101,11 @@ $client_total = count($clientList);
                 </label>
                 <label>
                     <span>Post Status</span>
-                    Published<input type="radio" name="post_status" value="published" <?php if(isset($data)){ matchOptions($data->post_status,'published', 'checked'); } ?>>Draft<input type="radio" name="post_status" value="draft" <?php if(isset($data)){ matchOptions($data->post_status,'draft', 'checked'); } ?>>
+                    Published<input type="radio" name="post_status" value="published" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){    matchOptions($data->post_status,'published', 'checked'); $published_default = true;} ?>>Draft<input type="radio" name="post_status" value="draft" <?php if(isset($data)){ matchOptions($data->post_status,'draft', 'checked'); $published_default = true;} ?>>
                 </label>
                 <label>
                     <span>Dynamic Author</span>
-                    TRUE<input type="radio" name="dynamic_author" value="true" <?php if(isset($data)){ matchOptions($data->dynamic_author,'true', 'checked'); } ?>>FALSE<input type="radio" name="dynamic_author" value="false" <?php if(isset($data)){ matchOptions($data->dynamic_author,'false', 'checked'); } ?>>
+                    TRUE<input type="radio" name="dynamic_author" value="true" <?php if(!isset($data)){ echo 'checked'; } else if(isset($data)){ matchOptions($data->dynamic_author,'true', 'checked'); } ?>>FALSE<input type="radio" name="dynamic_author" value="false" <?php if(isset($data)){ matchOptions($data->dynamic_author,'false', 'checked'); } ?>>
                 </label>
                 <label>
                     <span>Author_id</span>
@@ -115,7 +115,7 @@ $client_total = count($clientList);
                 </label>
                 <label>
                     <span>Image Upload</span>
-                    TRUE<input type="radio" name="image_import" value="true" <?php if(isset($data)){ matchOptions($data->image_import,'true', 'checked'); } ?>>FALSE<input type="radio" name="image_import" value="false" <?php if(isset($data)){ matchOptions($data->image_import,'false', 'checked'); } ?>>
+                    TRUE<input type="radio" name="image_import" value="true" <?php if(isset($data)){ matchOptions($data->image_import,'true', 'checked'); } ?>>FALSE<input type="radio" name="image_import" value="false" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){ matchOptions($data->image_import,'false', 'checked'); } ?>>
                 </label>
                 <label>
                     <span>Image Location</span>
@@ -125,7 +125,7 @@ $client_total = count($clientList);
                 </label>
                 <label>
                     <span>Video Import</span>
-                    TRUE<input type="radio" name="import_video" value="true" <?php if(isset($data)){ matchOptions($data->import_video,'true', 'checked'); } ?>>FALSE<input type="radio" name="import_video" value="false" <?php if(isset($data)){ matchOptions($data->import_video,'false', 'checked'); } ?>>
+                    TRUE<input type="radio" name="import_video" value="true" <?php if(isset($data)){ matchOptions($data->import_video,'true', 'checked'); } ?>>FALSE<input type="radio" name="import_video" value="false" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){ matchOptions($data->import_video,'false', 'checked'); } ?>>
                 </label>
                 <label>
                     <span>Public Key</span>
@@ -138,7 +138,7 @@ $client_total = count($clientList);
                 <label>
                     <span>Video Player</span>
                     <select name="video_player">
-                        <option value="atlantisjs" <?php if(isset($data)){ matchOptions($data->video_player,'atlantisjs', 'selected'); } ?>>Atlantis JS</option>
+                        <option value="atlantisjs" <?php if(!isset($data)){ echo 'checked'; }else if(isset($data)){ matchOptions($data->video_player,'atlantisjs', 'selected'); } ?>>Atlantis JS</option>
                         <option value="videojs" <?php if(isset($data)){ matchOptions($data->video_player,'videojs', 'selected'); } ?>>Video JS</option>
                     </select>
                 </label>
