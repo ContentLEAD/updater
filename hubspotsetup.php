@@ -194,6 +194,7 @@ $client_total = count($clientList);
                 method: "POST",
                 data: { key: hubKey, TYPE: 'get_info'}                
             }).done(function(data){
+                console.log(data);
                 var obj = $.parseJSON(data);
                 var blogs = obj['blogs'];
                 var authors = obj['authors'];
