@@ -1,7 +1,5 @@
 <?php 
 include 'load.php';
-define("HUB_BASE", "/var/www/html/tech/hubspot/test/");
-include BASE_PATH.'inc/setupFunctions.php';
 $type = 'new';
 $clients = scandir(HUB_BASE); 
 $clientList = array();
@@ -192,7 +190,7 @@ $client_total = count($clientList);
         $('#get-info').click(function(){
             var hubKey = $('#hub_apiKey').val();
             $.ajax({
-                url: "inc/setupFunctions.php",
+                url: "inc/utils.php",
                 method: "POST",
                 data: { key: hubKey, TYPE: 'get_info'}                
             }).done(function(data){
