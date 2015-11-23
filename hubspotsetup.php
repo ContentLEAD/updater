@@ -192,7 +192,7 @@ $client_total = count($clientList);
         $('#get-info').click(function(){
             var hubKey = $('#hub_apiKey').val();
             $.ajax({
-                url: "setupFunctions.php",
+                url: "inc/setupFunctions.php",
                 method: "POST",
                 data: { key: hubKey, TYPE: 'get_info'}                
             }).done(function(data){
