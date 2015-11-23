@@ -1,6 +1,7 @@
 <?php
-define("HUB_BASE", "/var/www/html/tech/hubspot/cos/");
-include_once HUB_BASE.'Hubspot-COS/BraftonLibrary/BraftonLibrary.php';
+if(file_exists(HUB_BASE.'Hubspot-COS/BraftonLibrary/BraftonLibrary.php')){
+    include_once HUB_BASE.'Hubspot-COS/BraftonLibrary/BraftonLibrary.php';
+}
 function matchOptions($value, $match, $term){
     if($value == $match){
         echo $term;

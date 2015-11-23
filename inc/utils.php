@@ -5,10 +5,12 @@ $date = date('Y-m-d');
 if(file_exists(BASE_PATH.'classes/database/creds.php')){
     require_once BASE_PATH.'classes/database/database.php';
 }
-if(file_exists(BASE_PATH . 'inc/setupFunctions.php')){
+if(file_exists(BASE_PATH . 'inc/setupFunctions.php') && $con->get_env() != 'LOCAL DEV'){
+    define("HUB_BASE", "/var/www/html/tech/hubspot/cos/");
     include_once BASE_PATH . 'inc/setupFunctions.php';
 }else{
-    
+    define("HUB_BASE", BASE_PATH."/logs/");
+    $devMessage = "You are running this application in a local development enviorment.  the required files and directory structure do not exist therefore the hubspot features will not work correctly";
 }
 //displays a list of importer for selection from the systems table
 function importer_list($plugin=NULL){

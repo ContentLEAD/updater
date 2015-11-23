@@ -32,6 +32,7 @@ $client_total = count($clientList);
         <div class="body">
             <section class="main-container">
                <?php get_header('Brafton Plugin and Module Version Control', 'Hubspot Setup'); ?>
+                <?php if(isset($devMessage)){ echo $devMessage; } ?>
                 <div class="install-instructions hubspot">
                     <h2>Setup a clients Hubspot Importer</h2>
                     <p>Running a hubspot importer now shows results in this screen. Currently you will need to set up a cron task through shell access when your done.</p>
@@ -172,7 +173,7 @@ $client_total = count($clientList);
                     <input type="submit" value="<?php echo $type; ?> Client">
                 </label>
             </form>
-            <iframe class="results" src=""></iframe>
+            <iframe class="results" src=""><?php if(isset($devMessage)){ echo $devMessage; } ?></iframe>
             </section>
         </div>
 <script>
