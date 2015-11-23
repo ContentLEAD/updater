@@ -31,11 +31,10 @@ $client_total = count($clientList);
             </header>
         <div class="body">
             <section class="main-container">
-               <?php get_header('Brafton Plugin and Module Version Control', 'Installation Wizard'); ?>
+               <?php get_header('Brafton Plugin and Module Version Control', 'Hubspot Setup'); ?>
                 <div class="install-instructions hubspot">
                     <h2>Setup a clients Hubspot Importer</h2>
-                    <p>Currently you will need to set up a cron task through shell access when your done.</p>
-                    <div style="clear:both;">Total Hubspot-COS Client: <?php echo $client_total; ?></div>
+                    <p>Running a hubspot importer now shows results in this screen. Currently you will need to set up a cron task through shell access when your done.</p>
                 </div>
                 <form action="" method="post" style="width:40%;float:left" class="hubclient-form">
                 <label>
@@ -60,6 +59,7 @@ $client_total = count($clientList);
                         <?php } ?>
                     </select>
                 </label>
+                    <div style="clear:both;">Total Hubspot-COS Client: <?php echo $client_total; ?></div>
                 </form>
             <form id="hub-setup" class="hubspot-setup-form" method="post" action="" onsubmit="return checkVitals();">
             
@@ -195,27 +195,22 @@ $client_total = count($clientList);
                 method: "POST",
                 data: { key: hubKey, TYPE: 'get_info'}                
             }).done(function(data){
-                console.log(data);
                 var obj = $.parseJSON(data);
                 var blogs = obj['blogs'];
                 var authors = obj['authors'];
                 var folders = obj['folders'];
                 $('#blogs').html(blogs);
                 var old_blog = $('.blogs-old-val').val();
-                console.log(old_blog);
                 if(old_blog != '' && old_blog != undefined){
-                    console.log(old_blog);
                     $('#blogs option[value="'+old_blog+'"]').attr('selected', 'selected');  
                 }
                 $('#authors').html(authors);
                 var old_authors = $('.authors-old-val').val();
-                console.log(old_authors);
                 if(old_authors != '' && old_authors != undefined){
                     $('#authors option[value="'+old_authors+'"]').attr('selected', 'selected');    
                 }
                 $('#folders').html(folders);
                 var old_folders = $('.folders-old-val').val();
-                console.log(old_folders);
                 if(old_folders != '' && old_folders != undefined){
                     $('#folders option[value="'+old_folders+'"]').attr('selected', 'selected');    
                 }
