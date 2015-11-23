@@ -202,15 +202,23 @@ $client_total = count($clientList);
                 var folders = obj['folders'];
                 $('#blogs').html(blogs);
                 var old_blog = $('.blogs-old-val').val();
-                if(old_blog != '' || old_blog != undefined){
-                    $('#blogs[value="'+old_blog+'"]').attr('selected', true);  
+                console.log(old_blog);
+                if(old_blog != '' && old_blog != undefined){
+                    $('#blogs[value="'+old_blog+'"]').attr('selected', 'selected');  
                 }
                 $('#authors').html(authors);
                 var old_authors = $('.authors-old-val').val();
-                $('#authors[value="'+old_authors+'"]').attr('selected', true);
+                console.log(old_authors);
+                if(old_authors != '' && old_authors != undefined){
+                    $('#authors[value="'+old_authors+'"]').attr('selected', 'selected');    
+                }
                 $('#folders').html(folders);
                 var old_folders = $('.folders-old-val').val();
-                $('#folders[value="'+old_folders+'"]').attr('selected', true);
+                console.log(old_folders);
+                if(old_folders != '' && old_folders != undefined){
+                    $('#folders[value="'+old_folders+'"]').attr('selected', 'selected');    
+                }
+                $('#folders[value="'+old_folders+'"]').attr('selected', 'selected');
             });
         });
         $('#clients_hub').change(function(e){
