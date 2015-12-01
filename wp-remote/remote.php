@@ -29,11 +29,11 @@ function braftonRemoteImport( $rpc_url, $actions ) {
     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
     curl_setopt( $ch, CURLOPT_TIMEOUT, 0 );
     $data = curl_exec( $ch );
-    $con->updateData('deployed_remotes', array('response' => $data), array(' WHERE ' => array(" id = '$id' ")));
+    $con->updateData('deployed_remotes', array('response' => $data, 'response_date' => $dateTime), array(' WHERE ' => array(" id = '$id' ")));
     curl_close( $ch );
     return $data;
 }
-/*
+
 if(isset($results[0])){
     if(version_compare($results[0]['version'], '3.2.5', '>=')){
         
@@ -44,8 +44,7 @@ if(isset($results[0])){
 }
 else{
     echo 'This client does not appear to be in our system as having installed the Brafton Wordpress Plugin.  Please check your domain url and try again.  If you are sure the client has the most up to date version of the importer plese contact the Updater administrator';
-}
-*/
+
 $rpc_server = $_GET['clientUrl'].'/xmlrpc.php';
 $actions = array();
 $actions = explode(',',$_GET['function']);
