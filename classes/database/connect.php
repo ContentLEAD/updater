@@ -187,6 +187,9 @@ class DBConnect implements Icreds {
     public function getDBName(){
         return $this->db;   
     }
+    public function get_id(){
+        return $this->connection->insert_id;   
+    }
 }
 $con = new DBConnect();
 ?>

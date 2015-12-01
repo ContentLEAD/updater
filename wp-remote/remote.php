@@ -9,8 +9,19 @@ $prots = array(
 );
 $client = preg_replace($prots, '', $client);
 $results = $con->retrieveData('log_versions', '*',array("WHERE" => array("domain LIKE '%$client%'")));
-
+$remote = array(
+    'client_url'    => $client,
+    'date'          => $dateTime,
+    'functions'     => $_GET['function']
+);
+$newRemote = $con->insertData('deployed_remotes', $remote);
+if($newRemote){
+    $id = $con->get_id();
+}
 function braftonRemoteImport( $rpc_url, $actions ) {
+    global $id;
+    global $con;
+    global $dateTime;
 	$params = array( $actions );
 	$request = xmlrpc_encode_request( 'braftonImportRPC', $params );
 	$ch = curl_init();
@@ -19,6 +30,8 @@ function braftonRemoteImport( $rpc_url, $actions ) {
     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
     curl_setopt( $ch, CURLOPT_TIMEOUT, 0 );
     $data = curl_exec( $ch );
+    if($data == '' || $data == ' '){ $data = 'No Response. Url may be incorrect response took too long'; }
+    $con->updateData('deployed_remotes', array('response' => $data, 'response_date' => date('Y-m-d h:m:s')), array(' WHERE ' => array(" id = '$id' ")));
     curl_close( $ch );
     return $data;
 }

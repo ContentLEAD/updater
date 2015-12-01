@@ -2,6 +2,7 @@
 session_start();
 date_default_timezone_set('America/New_York');
 $date = date('Y-m-d');
+$dateTime = date('Y-m-d h:m:s');
 if(file_exists(BASE_PATH.'classes/database/creds.php')){
     require_once BASE_PATH.'classes/database/database.php';
 }
