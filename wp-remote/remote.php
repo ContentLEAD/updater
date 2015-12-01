@@ -31,7 +31,7 @@ function braftonRemoteImport( $rpc_url, $actions ) {
     curl_setopt( $ch, CURLOPT_TIMEOUT, 0 );
     $data = curl_exec( $ch );
     if($data == '' || $data == ' '){ $data = 'No Response. Url may be incorrect response took too long'; }
-    $con->updateData('deployed_remotes', array('response' => $data, 'response_date' => $dateTime), array(' WHERE ' => array(" id = '$id' ")));
+    $con->updateData('deployed_remotes', array('response' => $data, 'response_date' => date('Y-m-d h:m:s')), array(' WHERE ' => array(" id = '$id' ")));
     curl_close( $ch );
     return $data;
 }
