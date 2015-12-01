@@ -6,6 +6,15 @@ function submit_domains() {
                data: $("#domain-delete").serialize(), // serializes the form's elements.
                success: function(data)
                {
+                    var domains_deleted = $('#domain-delete input.switch-input').length;
+                   console.log(domains_deleted);
+                   var old_total = $('#total_clients').html();
+                   var new_total = old_total - domains_deleted;
+                   console.log(new_total);
+                   $('#total_clients').html(new_total);
+                   $('#domain-delete input.switch-input').map(function(a,e){
+                        $(this).detach();
+                   });
                    domainsInputs.map(function(a,e){
                         var domain = $(this).val()
                         var cont = $("[id='"+domain+"']");
@@ -15,8 +24,7 @@ function submit_domains() {
                         $("[id='"+domain+"']").animate({opacity: .01},3000, function(e){
                             $(this).toggle(); 
                         });
-                   });
-                   
+                   });                   
                }
         });
     
@@ -81,7 +89,13 @@ function check_vals(){
 $(document).ready(function(){
     $('.administration-settings-form').find('input[type="submit"]').click(function(e){
         e.preventDefault();
-        new_importer();
+        if($('input[name="act"]').val() == 'update' || $('input[name="act"]').val() == 'edit'){
+            $('.administration-settings-form').submit();
+        }else if($('input[name="act"]').val() == 'add'){
+            new_importer();
+        }else{
+            alert('There appears to be an error.  Please contact your system admin.');
+        }
     });
     $('#go-left').click(function(e){
             var width = $('#overflow-container').find('article').outerWidth();
