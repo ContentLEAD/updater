@@ -62,9 +62,12 @@ for($i=0;$i<count($results);$i++){
                 <div id="delete-notice">
                     <button id="submit-error-deletion">Delete Selection</button>
                 </div>
-                <nav class="pagination">
-                    <?php if($page >= 2){ ?><a href="/errors.php?page=<?php echo $page -1 . $sort; ?>"><<< PREVIOUS </a> | <?php } ?><a href="/errors.php?page=<?php echo ($page + 1). $sort; ?>">NEXT >>></a>Total of <?php echo $total_errors; ?> Errors among <?php echo $total_clients; ?> Clients
-                </nav>
+                    <span class="results-details">Total of <span id="total_errors"><?php echo $total_errors; ?></span> Errors among <span id="total_clients"><?php echo $total_clients; ?></span> Clients</span>
+                <?php if($total_clients > 12){ ?>
+                    <nav class="pagination">
+                        <?php if($page >= 2){ ?><a href="/errors.php?page=<?php echo $page -1 . $sort; ?>"><<< PREVIOUS </a> | <?php } ?><a href="/errors.php?page=<?php echo ($page + 1). $sort; ?>">NEXT >>></a>
+                    </nav>
+                <?php } ?>
                     <input type="button" id="mass_delete" value="mass_delete">
                     <div class="clear-fix"></div>
                 <?php 
@@ -78,7 +81,7 @@ for($i=0;$i<count($results);$i++){
                         <div class="error_cont">
                             <h2><?php echo $result['client']; ?></h2>
                             <h3><?php echo $result['errors'][0]['type']; ?></h3>
-                            <p>Total Errors: <?php echo count($result['errors']); ?></p>
+                            <p>Total Errors: <span class="this-domains-errors"><?php echo count($result['errors']); ?></span></p>
                             <span class="domain_link"><a href="http://<?php echo $result['domain']; ?>"><?php echo $result['domain']; ?></a></span>
                             <div class="error_list">
                                 <?php if(!isset($_COOKIE['error_help_1'])){ ?>
@@ -126,9 +129,11 @@ for($i=0;$i<count($results);$i++){
                     </div>
                 <?php } ?>
                     </div>
-                                    <nav class="pagination">
-                    <?php if($page >= 2){ ?><a href="/errors.php?page=<?php echo $page -1 . $sort; ?>"><<< PREVIOUS </a> | <?php } ?><a href="/errors.php?page=<?php echo ($page + 1). $sort; ?>">NEXT >>></a>Total of <?php echo $total_errors; ?> Errors among <?php echo $total_clients; ?> Clients
+                <?php if($total_clients > 12){ ?>
+                <nav class="pagination">
+                    <?php if($page >= 2){ ?><a href="/errors.php?page=<?php echo $page -1 . $sort; ?>"><<< PREVIOUS </a> | <?php } ?><a href="/errors.php?page=<?php echo ($page + 1). $sort; ?>">NEXT >>></a>
                 </nav>
+                    <?php } ?>
             </section>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="delete-items">
                     <input type="hidden" name="deleting_items" value="submition">
