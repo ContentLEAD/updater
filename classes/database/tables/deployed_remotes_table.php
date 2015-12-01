@@ -34,7 +34,7 @@ class deployed_remotes_table extends DataStructure{
                         'default'   => 'NOT NULL',
         );
         $column[] = (object) array(
-                    'column_name'    => 'reponse_date',
+                    'column_name'    => 'response_date',
                         'type'      => 'datetime',
                         'default'   => 'NOT NULL',
         );
