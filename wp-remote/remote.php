@@ -21,6 +21,7 @@ if($newRemote){
 function braftonRemoteImport( $rpc_url, $actions ) {
     global $id;
     global $con;
+    global $dateTime;
 	$params = array( $actions );
 	$request = xmlrpc_encode_request( 'braftonImportRPC', $params );
 	$ch = curl_init();
@@ -29,6 +30,7 @@ function braftonRemoteImport( $rpc_url, $actions ) {
     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
     curl_setopt( $ch, CURLOPT_TIMEOUT, 0 );
     $data = curl_exec( $ch );
+    if($data == '' || $data == ' '){ $data = 'No Response. Url may be incorrect response took too long'; }
     $con->updateData('deployed_remotes', array('response' => $data, 'response_date' => $dateTime), array(' WHERE ' => array(" id = '$id' ")));
     curl_close( $ch );
     return $data;
@@ -44,7 +46,7 @@ if(isset($results[0])){
 }
 else{
     echo 'This client does not appear to be in our system as having installed the Brafton Wordpress Plugin.  Please check your domain url and try again.  If you are sure the client has the most up to date version of the importer plese contact the Updater administrator';
-
+}
 $rpc_server = $_GET['clientUrl'].'/xmlrpc.php';
 $actions = array();
 $actions = explode(',',$_GET['function']);
