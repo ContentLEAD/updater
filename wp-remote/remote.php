@@ -41,7 +41,7 @@ if(isset($results[0])){
         
     }else{
         $version = $results[0]['version'];
-        echo "The client at URL $client is currently running a version ($version) that does not support Remote Operation.  Remote Operations require Version 3.2.5 or higher.";
+        echo "The client at URL $client is currently running a version ($version) that does not support Remote Operation.  Remote Operations require Version 3.3.0 or higher.";
     }
 }
 else{

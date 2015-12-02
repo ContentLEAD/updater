@@ -173,6 +173,13 @@ $client_total = count($clientList);
                     <input type="submit" value="<?php echo $type; ?> Client">
                 </label>
             </form>
+                <?php if(isset($msg)){ ?>
+                <div class="results">
+                    <pre>
+                        <?php var_dump($msg); ?>
+                    </pre>
+                </div>
+                <?php } ?>
             <iframe class="results" src=""><?php if(isset($devMessage)){ echo $devMessage; } ?></iframe>
             </section>
         </div>
