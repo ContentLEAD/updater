@@ -1,6 +1,6 @@
 <?php 
 require_once 'load.php';
-if(isset($_POST['deleting_items'])){
+if(isset($_POST['deleting_items']) && isset($_POST['error-id'])){
     $error_ids = implode(',',$_POST['error-id']);
     $delete = 'DELETE FROM errors WHERE Eid in ('.$error_ids.')';
     $result_delete = $con->customQuery($delete);
