@@ -173,7 +173,7 @@ $client_total = count($clientList);
                     <input type="submit" value="<?php echo $type; ?> Client">
                 </label>
             </form>
-                <?php if(isset($msg)){ ?>
+                <?php if(isset($msg) && is_array($msg)){ ?>
                 <div class="results">
                     <pre>
                         <?php var_dump($msg); ?>

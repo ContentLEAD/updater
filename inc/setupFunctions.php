@@ -132,7 +132,7 @@ EOC;
         chmod(HUB_BASE.$client.'/creds.php', 0666);
         chmod(HUB_BASE.$client.'/creds.json',0666);
         $msg = add_hubspot_cron($client);
-        echo '<pre class="notice">Successfully added '.$client.' to the hubspot importer</pre>';
+        $msg[0] = '<pre class="notice">Successfully added '.$client.' to the hubspot importer</pre>'.$msg[0];
     }else{
         echo '<pre class="notice">Successfully edited '.$client.' on the hubspot importer</pre>';
     }
