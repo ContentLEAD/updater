@@ -35,7 +35,7 @@ $client_total = count($clientList);
                 <?php if(isset($devMessage)){ echo $devMessage; } ?>
                 <div class="install-instructions hubspot">
                     <h2>Setup a clients Hubspot Importer</h2>
-                    <p>Running a hubspot importer now shows results in this screen. Currently you will need to set up a cron task through shell access when your done.</p>
+                    <p>Running a hubspot importer now shows results in this screen. A Cron job will automatically be added to the system for the Apache user on the tech server.</p>
                 </div>
                 <form action="" method="post" style="width:40%;float:left" class="hubclient-form">
                 <label>
@@ -176,7 +176,11 @@ $client_total = count($clientList);
                 <?php if(isset($msg) && is_array($msg)){ ?>
                 <div class="results" style="float: right;width: 50%;overflow-wrap: break-word;background-color: #FFF;padding: 5px;box-sizing: border-box;">
                     <pre class="notice">
-                        <?php var_dump($msg); ?>
+                        <?php if(!isset($msg[1])){
+                                echo $msg[0];
+                        }else{
+                                var_dump($msg); 
+                        } ?>
                     </pre>
                 </div>
                 <?php } ?>
