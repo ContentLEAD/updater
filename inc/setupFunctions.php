@@ -125,15 +125,18 @@ EOC;
     $json = fopen(HUB_BASE.$client.'/creds.json','w');
     fwrite($json,$txtString);
     fclose($json);
+    $msg = array();
     if($_POST['hub_client'] == 'new_hub_client'){
         copy(HUB_BASE.'Hubspot-COS/client.php', HUB_BASE.$client.'/client.php');
         chmod(HUB_BASE.$client.'/client.php', 0777);
         chmod(HUB_BASE.$client.'/creds.php', 0666);
         chmod(HUB_BASE.$client.'/creds.json',0666);
-        echo '<pre class="notice">Successfully added '.$client.' to the hubspot importer</pre>';
+        $msg = add_hubspot_cron($client);
+        $msg[0] = 'Successfully added '.$client.' to the hubspot importer<br/>'.$msg[0];
     }else{
-        echo '<pre class="notice">Successfully edited '.$client.' on the hubspot importer</pre>';
+        $msg[0] = 'Successfully edited '.$client.' on the hubspot importer';
     }
+    return $msg;
 }
 
 if(isset($_POST['TYPE']) && ($_POST['TYPE'] == 'get_info')){
@@ -153,9 +156,48 @@ if(isset($_POST['TYPE']) && ($_POST['TYPE'] == 'get_info')){
     $json = json_encode($returnArray);
     echo $json;
 }
+function cronjob_exists($command){
+    $cronjob_exists=false;
+    exec('crontab -l', $crontab);
+    if(isset($crontab)&&is_array($crontab)){
+        $crontab = array_flip($crontab);
+        if(isset($crontab[$command])){
+            $cronjob_exists=true;
+        }
+    }
+    return $cronjob_exists;
+}
 
+function append_cronjob($command){
+    if( is_string($command) && !empty($command) && cronjob_exists($command) === FALSE ){
+        exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
+        return true;
+    }else{
+        return false;
+    }
+}
+function add_hubspot_cron($client){
+    $msg = array();
+    $last = explode(' ',exec('crontab -l'));
+    $minute = $last[0];
+    if($minute == '*' || $minute == 59){
+        $minute = 01;
+    }else{
+        $minute++;
+    }
+    $command = $minute." 13-22 * * 1-5 /usr/bin/wget http://tech.brafton.com/hubspot/cos/{$client}/client.php";
+    $result = append_cronjob($command);
+    if($result){
+            $msg[0] = "successfully added $command to the apache cron";
+    }else{
+        exec('crontab -l', $cron);
+        $msg[0] = "Your attempt to add $command to the apache cron has failed as it appears to already exist.  See an output of the existing cron jobs below";
+        $msg[1] =$cron;
+    }
+    return $msg;
+}
 if(isset($_POST['hub_client'])){
-    add_client();
+    $msg = add_client();
 }
 
 ?>
