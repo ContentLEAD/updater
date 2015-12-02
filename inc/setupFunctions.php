@@ -176,7 +176,7 @@ function append_cronjob($command){
         return array(false, $command );
     }
 }
-add_hubspot_cron($client){
+function add_hubspot_cron($client){
     $msg = array();
     $last = explode(' ',exec('crontab -l'));
     $minute = $last[0];
