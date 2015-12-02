@@ -52,7 +52,7 @@ for($i=0;$i<count($results);$i++){
             </header>
         <div class="body">
             <section class="main-container">
-                <?php get_header('Error Report', 'Sub Title'); ?>
+                <?php get_header('Error Report'); ?>
                 <div class="error_holder">
                 <div id="sorting">
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get" id="sorting-form" style="font-size:22px;">
