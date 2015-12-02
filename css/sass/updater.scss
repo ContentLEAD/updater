@@ -629,6 +629,14 @@ section.main-container{
 }
 .main-container .error_holder{
     //overflow:hidden;
+    span{
+        &.results-details{
+            display:inline-block;
+            padding:0px 10px;
+            font-size:24px;
+            color:#FFF;
+        }
+    }
 }
 
 //Error Page
