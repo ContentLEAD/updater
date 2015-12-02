@@ -132,9 +132,9 @@ EOC;
         chmod(HUB_BASE.$client.'/creds.php', 0666);
         chmod(HUB_BASE.$client.'/creds.json',0666);
         $msg = add_hubspot_cron($client);
-        $msg[0] = '<pre class="notice">Successfully added '.$client.' to the hubspot importer</pre>'.$msg[0];
+        $msg[0] = 'Successfully added '.$client.' to the hubspot importer<br/>'.$msg[0];
     }else{
-        echo '<pre class="notice">Successfully edited '.$client.' on the hubspot importer</pre>';
+        $msg[0] = 'Successfully edited '.$client.' on the hubspot importer';
     }
     return $msg;
 }
@@ -171,31 +171,28 @@ function cronjob_exists($command){
 function append_cronjob($command){
     if( is_string($command) && !empty($command) && cronjob_exists($command) === FALSE ){
         exec('echo -e "`crontab -l`\n'.$command.'" | crontab -', $output);
-        return array(true, $command);
+        return true;
     }else{
-        return array(false, $command );
+        return false;
     }
 }
 function add_hubspot_cron($client){
     $msg = array();
     $last = explode(' ',exec('crontab -l'));
     $minute = $last[0];
-    if($minute == '*' || $minute > 59){
+    if($minute == '*' || $minute == 59){
         $minute = 01;
     }else{
         $minute++;
     }
-    $result = append_cronjob($minute." 13-22 * * 1-5 /usr/bin/wget http://tech.brafton.com/hubspot/cos/{$client}/client.php");
-    if(is_array($result)){
-        if($result[0]){
-            $msg[0] = "successfully added $result[1] to the apache cron";
-        }else{
-            exec('crontab -l', $cron);
-            $msg[0] = "Your attempt to add $result[1] to the apache cron has failed as it appears to already exist.  See an output of the existing cron jobs below";
-            $msg[1] =$cron;
-        }
+    $command = $minute." 13-22 * * 1-5 /usr/bin/wget http://tech.brafton.com/hubspot/cos/{$client}/client.php";
+    $result = append_cronjob($command);
+    if($result){
+            $msg[0] = "successfully added $command to the apache cron";
     }else{
-        $msg[0] = "There was an unrecognizable error while attempting to add the cronjob.  You may have to do this manually via the shell";
+        exec('crontab -l', $cron);
+        $msg[0] = "Your attempt to add $command to the apache cron has failed as it appears to already exist.  See an output of the existing cron jobs below";
+        $msg[1] =$cron;
     }
     return $msg;
 }
