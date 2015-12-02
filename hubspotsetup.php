@@ -174,8 +174,8 @@ $client_total = count($clientList);
                 </label>
             </form>
                 <?php if(isset($msg) && is_array($msg)){ ?>
-                <div class="results">
-                    <pre>
+                <div class="results" style="float: right;width: 50%;overflow-wrap: break-word;background-color: #FFF;padding: 5px;box-sizing: border-box;">
+                    <pre class="notice">
                         <?php var_dump($msg); ?>
                     </pre>
                 </div>
