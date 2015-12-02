@@ -1,23 +1,35 @@
 function submit_domains() {
         var domainsInputs = $("#domain-delete").find('input');
+    
         $.ajax({
                type: "POST",
                url: "formhandlers/errors.php",
-               data: $("#domain-delete").serialize(), // serializes the form's elements.
+               data: $("#domain-delete").serialize(),
                success: function(data)
                {
                     var domains_deleted = $('#domain-delete input.switch-input').length;
-                   console.log(domains_deleted);
+                   
                    var old_total = $('#total_clients').html();
                    var new_total = old_total - domains_deleted;
-                   console.log(new_total);
+                   
                    $('#total_clients').html(new_total);
                    $('#domain-delete input.switch-input').map(function(a,e){
                         $(this).detach();
                    });
                    domainsInputs.map(function(a,e){
-                        var domain = $(this).val()
+
+                        var domain = $(this).val();
+                       var domainsTotalErrors = Number($("[id='"+domain+"']").find('.this-domains-errors').html());
+                       if(!isNaN(domainsTotalErrors)){
+                           
+                           var oldTotal = Number($('#total_errors').html()) 
+                           
+                           var newtotal = (oldTotal * 1) - (domainsTotalErrors * 1);
+                           $('#total_errors').html(newtotal);
+                           
+                       }
                         var cont = $("[id='"+domain+"']");
+                       cont.find('input.switch-input').detach();
                        var cHeight = cont.css("height");
                        cont.css("max-height",cHeight);
                        $("[id='"+domain+"']").addClass('delete');
@@ -226,7 +238,7 @@ $(document).ready(function(){
                 return $(this).val();
             });        
         var itemsIndex = $.inArray(error, array);
-        console.log('index is '+itemsIndex);
+//        console.log('index is '+itemsIndex);
         if(itemsIndex !== -1){
             items[itemsIndex].remove();
         }else{
@@ -240,6 +252,8 @@ $(document).ready(function(){
         displayMessage('warning', 'delete-individual-notice', 'Individual Errors have been marked for deletion');
     });
     $('#submit-error-deletion').click(function(e){
+        
+        $('#mass_delete').trigger('click');
         $('#delete-items').submit();
     });
     $('#mass_delete').click(function(e){

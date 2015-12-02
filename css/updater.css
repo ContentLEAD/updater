@@ -759,6 +759,13 @@ section.main-container {
   min-width: 1000px;
 }
 
+.main-container .error_holder span.results-details {
+  display: inline-block;
+  padding: 0px 10px;
+  font-size: 24px;
+  color: #FFF;
+}
+
 .main-container input#mass_delete {
   position: absolute;
   top: -999px;
