@@ -4,7 +4,7 @@ $filename = $_POST['filename'];
 $client = $_GET['client'];
 if(!is_dir('logs/'.$client)){
     mkdir('logs/'.$client);
-    chmod('logs/'.$client, 777);
+    chmod('logs/'.$client, 0777);
 }
 $file = fopen('logs'.$client.'/'.$filename, 'w');
 if(fwrite($file, $errors)){
