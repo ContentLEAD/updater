@@ -11,4 +11,5 @@ if(fwrite($file, $errors)){
     echo 'success';
 }else{
     echo 'failure';
+    var_dump($_POST);
 }
