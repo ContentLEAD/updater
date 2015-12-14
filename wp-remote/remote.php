@@ -35,21 +35,34 @@ function braftonRemoteImport( $rpc_url, $actions ) {
     curl_close( $ch );
     return $data;
 }
-
+$header = '';
 if(isset($results[0])){
     if(version_compare($results[0]['version'], '3.2.5', '>=')){
         
     }else{
         $version = $results[0]['version'];
-        echo "The client at URL $client is currently running a version ($version) that does not support Remote Operation.  Remote Operations require Version 3.3.0 or higher.";
+        $header .= "<p>The client at URL $client is currently running a version ($version) that does not support Remote Operation.  Remote Operations require Version 3.3.0 or higher.</p>";
     }
 }
 else{
-    echo 'This client does not appear to be in our system as having installed the Brafton Wordpress Plugin.  Please check your domain url and try again.  If you are sure the client has the most up to date version of the importer plese contact the Updater administrator';
+    $header .= '<p>This client does not appear to be in our system as having installed the Brafton Wordpress Plugin.  Please check your domain url and try again.  If you are sure the client has the most up to date version of the importer plese contact the Updater administrator</p>';
 }
 $rpc_server = $_GET['clientUrl'].'/xmlrpc.php';
 $actions = array();
 $actions = explode(',',$_GET['function']);
 $data = braftonRemoteImport( $rpc_server, $actions );
-echo $data;
+$doc = new DOMDocument();
+@$doc->loadXML($data);
+$response = @$doc->getElementsByTagName('string')->item(0)->nodeValue;
+if($response != 'ok'){
+    if(in_array('health_check', $actions)){
+        echo 'fail';
+        die();
+    }
+    echo $header;
+}
+if($response === null){
+    echo $data;
+}
+echo htmlspecialchars_decode($response);
 ?>
