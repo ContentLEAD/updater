@@ -10,10 +10,13 @@
             <label>
                 <span>Actions</span>
                 <select name="function" size="4" multiple id="function" style="clear:both; width:100%">
-                    <option>articles</option>
-                    <option>videos</option>
-                    <option>get_options</option>
-                    <option>get_errors</option>
+                    <option value="articles">Import Articles</option>
+                    <option value="videos">Import Videos</option>
+                    <option value="get_options">Client Options</option>
+                    <option value="get_errors">Error Report</option>
+                    <option value="health_check">Perform HealthCheck</option>
+                    <option value="clear_errors">Clear Error Log</option>
+                    <option value="turn_off">Turn Off Importer</option>
                 </select>
             </label>
             <label>
@@ -31,6 +34,7 @@
             console.log(actions);
             $.ajax({
                 url: "wp-remote/remote.php?clientUrl="+url+"&function="+actions,
+                //dataType: "xml",
             }).done(function(data){
                 $('#Importer-results').html(data);
                 var close = $('#close-imported');
