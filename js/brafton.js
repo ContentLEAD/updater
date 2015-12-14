@@ -68,7 +68,7 @@ if($('input[name="act"]').val() == 'add'){
              if(data == 'success'){
                  $('.administration-settings-form').submit();
              }else{
-                 alert('There was an error adding a Table to the database');
+                 alert('There was an error adding a Table to the database'+data);
                  return false;
              }
         });        

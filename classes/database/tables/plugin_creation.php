@@ -110,14 +110,16 @@ class {$table}_table extends DataStructure{
         }
     }
 }";
-if(isset($table) && $table != null && $table != ''){
+if(isset($table) && $table != null && $table != '' && !file_exists(BASE_PATH . 'classes/database/tables/'.$table.'_table.php') ){
     $fp=fopen(BASE_PATH . 'classes/database/tables/'.$table.'_table.php', 'w');
     if(fwrite($fp, $script)){
     fclose($fp);
         echo 'success';
     }else{
-        echo 'failure';
+        echo 'failure: could not write to plugin table file '.$table.'_table.php';
     }
+}else if(file_exists(BASE_PATH . 'classes/database/tables/'.$table.'_table.php')){
+    echo 'success';
 }else{
-    echo 'failure';
+    echo 'failure: Could not determine parameters for table file '.$table.'_table.php';
 }
