@@ -3,7 +3,6 @@ classes/creds.php
 classes/database/creds.php
 db
 folder_errors
-logs
 error_log
 *.ico
 test.php
@@ -12,3 +11,4 @@ test.php
 staging
 css/.sass-cache
 css/config.rb
+logs/*/
