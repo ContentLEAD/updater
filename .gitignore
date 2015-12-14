@@ -3,7 +3,7 @@ classes/creds.php
 classes/database/creds.php
 db
 folder_errors
-logs
+logs/*
 error_log
 *.ico
 test.php
