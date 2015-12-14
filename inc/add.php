@@ -20,7 +20,8 @@
         <h2>Importer Details</h2>
         <label>
             <span>Version #</span>
-            <input type="text" name="version">
+            <!--<input type="text" name="version">-->
+            <input type="number" name="version[]"><input type="number" name="version[]"><input type="number" name="version[]">
         </label>
         <label>
             <span>Plugin Description</span>

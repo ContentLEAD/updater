@@ -102,7 +102,7 @@ function new_importer(){
     
     //Insert our importer details into the newly created table
     $pname = $_POST['IName'];
-    $ver = $_POST['version'];
+    $ver = implode('.',$_POST['version']);
     $desc = $_POST['description'];
     $requires = $_POST['requires'];
     $tested = $_POST['tested'];
