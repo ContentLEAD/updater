@@ -147,7 +147,9 @@ function new_importer(){
 function new_importer_files($plugin){
     try{
         mkdir(BASE_PATH.$plugin);
+        chmod(BASE_PATH.$plugin, 775);
         mkdir(BASE_PATH.$plugin.'/repository');
+        chmod(BASE_PATH.$plugin.'/repository', 775);
         copy(BASE_PATH.'templates/error.php', BASE_PATH.$plugin.'/error.php');
         copy(BASE_PATH.'templates/update.php', BASE_PATH.$plugin.'/update.php');
         return true;
