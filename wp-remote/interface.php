@@ -17,6 +17,7 @@
                     <option value="health_check">Perform HealthCheck</option>
                     <option value="clear_errors">Clear Error Log</option>
                     <option value="turn_off">Turn Off Importer</option>
+                    <option value="debug_off">Turn Off Debug</option>
                 </select>
             </label>
             <label>
