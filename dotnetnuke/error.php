@@ -1,5 +1,5 @@
 <?php
-echo 'hello';
+
 if(isset($_REQUEST['key'])){
     $key = $_REQUEST['key'];
     if($results = $con->retrieveData('keys','*', array('WHERE'=> array("encryptionKey='$key'")))){
