@@ -1,4 +1,5 @@
 <?php
+echo 'hello';
 if(isset($_REQUEST['key'])){
     $key = $_REQUEST['key'];
     if($results = $con->retrieveData('keys','*', array('WHERE'=> array("encryptionKey='$key'")))){
@@ -25,5 +26,4 @@ if(isset($_REQUEST['key'])){
     //log special error.  Something attempted to access this page without proper encryption key
     echo 'no encryption key';
 }
-echo 'hello';
 ?>
