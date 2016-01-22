@@ -12,3 +12,4 @@ staging
 css/.sass-cache
 css/config.rb
 logs/*/
+importers list
