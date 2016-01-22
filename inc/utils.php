@@ -10,7 +10,7 @@ if(file_exists(BASE_PATH . 'inc/setupFunctions.php') && $con->get_env() != 'LOCA
     define("HUB_BASE", "/var/www/html/tech/hubspot/cos/");
     include_once BASE_PATH . 'inc/setupFunctions.php';
 }else{
-    define("HUB_BASE", BASE_PATH."/logs/");
+    define("HUB_BASE", BASE_PATH."logs/");
     $devMessage = "You are running this application in a local development enviorment.  the required files and directory structure do not exist therefore the hubspot features will not work correctly";
     include_once BASE_PATH . 'inc/setupFunctions.php';
 }
@@ -147,9 +147,9 @@ function new_importer(){
 function new_importer_files($plugin){
     try{
         mkdir(BASE_PATH.$plugin);
-        chmod(BASE_PATH.$plugin, 775);
+        chmod(BASE_PATH.$plugin, 0775);
         mkdir(BASE_PATH.$plugin.'/repository');
-        chmod(BASE_PATH.$plugin.'/repository', 775);
+        chmod(BASE_PATH.$plugin.'/repository', 0775);
         copy(BASE_PATH.'templates/error.php', BASE_PATH.$plugin.'/error.php');
         copy(BASE_PATH.'templates/update.php', BASE_PATH.$plugin.'/update.php');
         return true;
@@ -159,6 +159,10 @@ function new_importer_files($plugin){
 }
 //downloads copy of the importer from where ever we will be keeping it.
 function download_importer($plugin,$file_name,$download_link) {
+    if(!file_exists(BASE_PATH.$plugin.'/repository')){
+        mkdir(BASE_PATH.$plugin.'/repository');
+        chmod(BASE_PATH.$plugin.'/repository', 0775);
+    }
    try{
         $repo_name = BASE_PATH.$plugin.'/repository/'.$file_name;
         $src = fopen($download_link,'r');

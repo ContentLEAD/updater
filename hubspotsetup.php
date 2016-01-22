@@ -36,6 +36,7 @@ $client_total = count($clientList);
                 <div class="install-instructions hubspot">
                     <h2>Setup a clients Hubspot Importer</h2>
                     <p>Running a hubspot importer now shows results in this screen. A Cron job will automatically be added to the system for the Apache user on the tech server.</p>
+                    <div style="clear:both;">Total Hubspot-COS Client: <?php echo $client_total; ?></div>
                 </div>
                 <form action="" method="post" style="width:40%;float:left" class="hubclient-form">
                 <label>
@@ -52,7 +53,7 @@ $client_total = count($clientList);
                     <input type="hidden" name="edit_hub_client" value="edit">
                 </label>    
                     <label title="This will output complete details during the import run.">
-                    <span>Run an Importer</span><input type="checkbox" id="debug" value="true">DEBUG MODE
+                    <span>Run an Importer</span><input type="checkbox" id="debug" value="true">DEBUG MODE<input type="checkbox" id="archive_import" value="true" style="float:none">ARCHIVE IMPORT
                     <select id="clients_hub">
                         <option>Choose a Client</option>
                         <?php foreach($clientList as $client){ ?>
@@ -60,7 +61,7 @@ $client_total = count($clientList);
                         <?php } ?>
                     </select>
                 </label>
-                    <div style="clear:both;">Total Hubspot-COS Client: <?php echo $client_total; ?></div>
+                    <span id="archive-loader" class="button archive">Upload Archive</span>
                 </form>
             <form id="hub-setup" class="hubspot-setup-form" method="post" action="" onsubmit="return checkVitals();">
             
@@ -197,6 +198,16 @@ $client_total = count($clientList);
             return val;   
         }
     $(document).ready(function(){
+        $('#archive-loader').click(function(e){
+            $('#archiver').toggle();
+            var frame = $('#archiver iframe');
+            var src = frame.attr('src');
+            frame.attr('src', src)
+        });
+        $('.close-button').click(function(e){
+            var parent = $(this).parent();
+            parent.toggle();
+        });
         $('#clients_hub_edit').change(function(e){
             $('.hubclient-form').submit();
         });
@@ -231,11 +242,21 @@ $client_total = count($clientList);
         $('#clients_hub').change(function(e){
             var client = $(this).val();
             var debug = '';
+            var archive = '';
+            var urlArray = [];
             var a = $('#debug');
             if(a.is(':checked')){
-                debug = '?debug=true';   
+                debug = 'debug=true'; 
+                urlArray.push(debug);
             }
-            $('iframe.results').attr("src", "http://tech.brafton.com/hubspot/cos/"+client+'/client.php'+debug);
+            var b = $('#archive_import');
+            if(b.is(':checked')){
+                archive = 'archive=true'; 
+                urlArray.push(archive);
+            }
+            var urlString = urlArray.join('&');
+            console.log(urlString);
+            $('iframe.results').attr("src", "http://tech.brafton.com/hubspot/cos/"+client+'/client.php?'+urlString);
             $(this).val('');
         });
         <?php if(isset($data)){ ?>
@@ -246,5 +267,6 @@ $client_total = count($clientList);
         ?>
     });
     </script>
+    <div id="archiver" style="position:absolute; top:0;left:0;width:100%;height:100%;padding:10%;background-color:white;display:none"><span class="button close-button"></span><iframe src="/inc/hubspot_archive.php"  style="display:block;width:75%;margin:0px auto; height:75%;"></iframe></div>
 </body>
 </html>

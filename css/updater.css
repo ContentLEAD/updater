@@ -389,6 +389,9 @@ form {
   padding-left: 25px;
   box-sizing: border-box;
 }
+form#sorting-form {
+  background-color: transparent;
+}
 form h2 {
   font-family: "News Cycle";
   font-size: 28px;
@@ -1623,4 +1626,39 @@ iframe.results {
   height: 1000px;
   overflow-x: auto;
   background-color: #fff;
+}
+
+.button.archive {
+  background-color: #CCC;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ececec;
+  -webkit-box-shadow: 4px 6px 12px 5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 6px 12px 5px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 6px 12px 5px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+}
+.button.archive:active {
+  -webkit-box-shadow: inset 2px 3px 6px 2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 2px 3px 6px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 2px 3px 6px 2px rgba(0, 0, 0, 0.75);
+}
+.button.close-button {
+  width: 25px;
+  height: 25px;
+  border: 1px solid black;
+  background-color: red;
+  text-align: center;
+  border-radius: 100%;
+  display: block;
+  content: "";
+  cursor: pointer;
+}
+.button.close-button:after {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  content: "\f00d";
 }
