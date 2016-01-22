@@ -35,6 +35,8 @@ if(isset($_FILES['archive'])){
     $tmp = $file['tmp_name'];
     $status = move_uploaded_file($tmp, HUB_BASE.$clientName.'/archive-'.$clientName.'.xml');
     if($status){
+        echo "successfully added archive<br/>";
+        echo "Running Importer @ " . HUB_BASE.$clientName.'/client.php<br/>';
         include_once HUB_BASE.$clientName.'/client.php';
     }
     else{
