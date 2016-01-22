@@ -82,7 +82,7 @@ for($i=0;$i<count($results);$i++){
                             <h2><?php echo $result['client']; ?></h2>
                             <h3><?php echo $result['errors'][0]['type']; ?></h3>
                             <p>Total Errors: <span class="this-domains-errors"><?php echo count($result['errors']); ?></span></p>
-                            <span class="domain_link"><a href="http://<?php echo $result['domain']; ?>"><?php echo $result['domain']; ?></a></span>
+                            <span class="domain_link"><a href="http://<?php echo $result['domain']; ?>" target="_blank"><?php echo $result['domain']; ?></a></span>
                             <div class="error_list">
                                 <?php if(!isset($_COOKIE['error_help_1'])){ ?>
                                     <div class="instructions error_help_1">
@@ -90,7 +90,7 @@ for($i=0;$i<count($results);$i++){
                                     </div>
                                 <?php } ?>
                                 <div class="error_listing">
-                                    <a href="//<?php echo $result['domain']; ?>"><?php echo $result['domain']; ?></a>
+                                    <a href="//<?php echo $result['domain']; ?>" target="_blank" onclick="stopPropagation()"><?php echo $result['domain']; ?></a>
                                 <?php foreach($result['errors'] as $errors){ ?>
                                     <section class="newError">
                                         <?php $data = json_decode($errors['error']); ?>
@@ -105,7 +105,9 @@ for($i=0;$i<count($results);$i++){
                                             </div>
                                             <div class="report">
                                                <?php 
-                                                $vars = get_object_vars($data); 
+                                                $vars = get_object_vars($data);                             
+                                                $apiKey = '';
+                                                $brand = '';
                                                 foreach($vars as $key => $value){
                                                     if($key == 'error'){ 
 //                                                        echo '</span><span>';
@@ -114,9 +116,12 @@ for($i=0;$i<count($results);$i++){
                                                         if($key == 'Domain'){
                                                             continue;
                                                         }
+                                                        $apiKey = $key == 'API'? $value : $apiKey;
+                                                        $brand = $key == 'Brand'? $value : $brand;
                                                         echo '<span><b>'.$key.'</b>: '.$value.'</span>';
                                                     }
                                                 }
+                                                                            echo '<a href="http://'.$brand.'/'.$apiKey.'">FEED</a>';
                                                 ?>
 
                                             </div>
