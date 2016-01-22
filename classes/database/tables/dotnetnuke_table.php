@@ -99,6 +99,7 @@ class dotnetnuke_table extends DataStructure{
         global $date;
         $formalName = ucfirst($this->table);
         $result = $this->connection->insertData('systems', array('name' => $formalName, 'supported_since' => $date, 'logo'  => 'communityDLSeal.png'));
+        $result2 = $this->connection->insertData($this->table, array('version'  => '0'));
         if($result){
             
         }

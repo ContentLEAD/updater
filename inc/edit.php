@@ -23,6 +23,9 @@ if(isset($_GET['plugin'])){
         <label>
             <span>Version #</span>
             <?php $v = explode('.',$results['version']);
+                while(count($v) <= 3){
+                    array_push($v, '0');   
+                }
                 foreach($v as $key => $val){ ?>
                 <input type="number" name="version[]" value="<?php echo $val; ?>">
             <?php } ?>
