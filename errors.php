@@ -102,7 +102,7 @@ function check_for_garbage($domain, $garbage){
                                 <?php } ?>
                                 <div class="error_listing">
                                     <a href="//<?php echo $result['domain']; ?>" target="_blank" onclick="stopPropagation()"><?php echo $result['domain']; ?></a>
-                                <?php $limit = 5; $counter = 0; foreach($result['errors'] as $errors){ 
+                                <?php $limit = 25; $counter = 0; foreach($result['errors'] as $errors){ 
                                     if($counter == $limit){ break; } ?>
                                     <section class="newError">
                                         <?php $data = json_decode($errors['error']); ?>
