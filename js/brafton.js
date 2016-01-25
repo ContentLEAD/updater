@@ -30,6 +30,7 @@ function submit_domains() {
                        }
                         var cont = $("[id='"+domain+"']");
                        cont.find('input.switch-input').detach();
+                       cont.find('span.garbage').detach();
                        var cHeight = cont.css("height");
                        cont.css("max-height",cHeight);
                        $("[id='"+domain+"']").addClass('delete');
@@ -296,6 +297,59 @@ $(document).ready(function(){
     });
     $('.popUp-info').click(function(e){
         $(this).toggle();
+    });
+    $('.garbage').click(function(e){
+        var classes = $(this).attr('class').split(' ');
+        classes = classes.filter(function(v){ if(v != ""){ return v; } } );
+        var state = classes.length > 1 ? true : false;
+        var domain = $(this).attr('id');
+        var domain = domain.substring(domain.indexOf('-') + 1);
+        var thisItem = this;
+        $.ajax({
+            url: "/formhandlers/garbage_logging.php",
+            content: document.body,
+            type: "POST",
+            data: 'garbage_log='+domain
+        }).done(function(data){
+            if(data == 'success'){
+                console.log(state);
+                if(state){
+                    $(thisItem).removeClass('identified');   
+                }else{
+                    $(thisItem).addClass('identified');
+                }
+            }else{
+                console.log(data); 
+            }
+        });
+        e.stopImmediatePropagation();
+    });
+    $('#clean_garbage').click(function(e){
+        var garbage = $('.garbage.identified');
+        var garbageIds = [];
+        garbage.map(function(obj){
+            console.log(obj);
+            var id = $(this).attr('id').substring($(this).attr('id').indexOf('-') + 1);
+            garbageIds.push(id);
+        });
+        console.log(garbageIds);
+        var garbageJSON = JSON.stringify(garbageIds);
+        console.log(garbageJSON);
+        
+        $.ajax({
+            url: "/formhandlers/garbage.php",
+            content: document.body,
+            type: 'POST',
+            data: 'garbage='+garbageJSON
+        }).done(function(data){
+             if(data == 'success'){
+                window.location.reload();
+             }else{
+                 alert('There was an error clearing out all known garbage');
+                 console.log(data);
+                 return false;
+             }
+        });     
     });
     
 });

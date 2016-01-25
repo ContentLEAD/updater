@@ -870,6 +870,20 @@ div.clear-fix {
   left: 62px;
   box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 }
+.error_card .garbage {
+  position: absolute;
+  bottom: 15px;
+  right: 29px;
+  z-index: 10;
+  background-color: red;
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  font-size: 24px;
+}
+.error_card .garbage.identified {
+  background-color: green;
+}
 .error_card .error_cont {
   border: 2px ridge black;
   border-radius: 10px;
