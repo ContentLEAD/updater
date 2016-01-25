@@ -39,6 +39,15 @@ for($i=0;$i<count($results);$i++){
     $results[$i]['client'] = preg_replace($prots,'',$results[$i]['domain']);
     $total_clients++;
 }
+$garbage = $con->retrieveData('error_garbage', 'domain');
+function check_for_garbage($domain, $garbage){
+    foreach($garbage as $item){
+        if($domain == $item['domain']){
+            return true;
+        }
+    }
+    return false;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,6 +70,7 @@ for($i=0;$i<count($results);$i++){
                 </div>
                 <div id="delete-notice">
                     <button id="submit-error-deletion">Delete Selection</button>
+                    <button id="clean_garbage">Clear Terminated/Dev Sites</button>
                 </div>
                     <span class="results-details">Total of <span id="total_errors"><?php echo $total_errors; ?></span> Errors among <span id="total_clients"><?php echo $total_clients; ?></span> Clients</span>
                 <?php if($total_clients > 12){ ?>
@@ -78,6 +88,7 @@ for($i=0;$i<count($results);$i++){
                                 <input class="switch-input" type="checkbox" name="domain-select[]" value="<?php echo $result['domain']; ?>"><!--<span>DELETE</span>--><span class="switch-label" data-on="Delete" data-off="Keep"></span><span class="switch-handle"></span>
                             </label>
                         </span>
+                        <span title="If This icon is red it is an error that MAY need to be addressed.  Icons marked in Green indicate they are clear to be mass deleted" class="garbage <?php if(check_for_garbage($result['domain'], $garbage)){ echo 'identified'; } ?>" id="garbage-<?php echo $result['domain']; ?>"><i class="fa fa-trash-o"></i></span>
                         <div class="error_cont">
                             <h2><?php echo $result['client']; ?></h2>
                             <h3><?php echo $result['errors'][0]['type']; ?></h3>
@@ -91,7 +102,8 @@ for($i=0;$i<count($results);$i++){
                                 <?php } ?>
                                 <div class="error_listing">
                                     <a href="//<?php echo $result['domain']; ?>" target="_blank" onclick="stopPropagation()"><?php echo $result['domain']; ?></a>
-                                <?php foreach($result['errors'] as $errors){ ?>
+                                <?php $limit = 5; $counter = 0; foreach($result['errors'] as $errors){ 
+                                    if($counter == $limit){ break; } ?>
                                     <section class="newError">
                                         <?php $data = json_decode($errors['error']); ?>
                                         <div class="error-report" id="error-<?php echo $errors['Eid']; ?>">
@@ -108,6 +120,7 @@ for($i=0;$i<count($results);$i++){
                                                 $vars = get_object_vars($data);                             
                                                 $apiKey = '';
                                                 $brand = '';
+                                                
                                                 foreach($vars as $key => $value){
                                                     if($key == 'error'){ 
 //                                                        echo '</span><span>';
@@ -127,7 +140,7 @@ for($i=0;$i<count($results);$i++){
                                             </div>
                                         </div>
                                     </section>
-                                <?php } ?>
+                                <?php $counter++; } ?>
                                 </div>
                             </div>
                         </div>
