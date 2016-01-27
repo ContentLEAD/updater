@@ -56,7 +56,8 @@ $doc = new DOMDocument();
 $response = @$doc->getElementsByTagName('string')->item(0)->nodeValue;
 if($response != 'ok'){
     if(in_array('health_check', $actions)){
-        echo 'fail';
+       // echo 'fail';
+        echo $response;
         die();
     }
     echo $header;
@@ -64,5 +65,6 @@ if($response != 'ok'){
 if($response === null){
     echo $data;
 }
+echo $response;
 echo htmlspecialchars_decode($response);
 ?>
